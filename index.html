@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Braeden Lagowski</title>
+  <meta name="description" content="Graduating Student" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── CSS Custom Properties ──────────────────────────────────────────── */
+    :root {
+      --font-outfit: 'Outfit', sans-serif;
+      --font-geist-mono: 'Geist Mono', monospace;
+
+      --radius: 0.625rem;
+
+      /* Light theme */
+      --background: #fff;
+      --foreground: #141414;
+      --header: #141414;
+      --body: #575757;
+      --body-secondary: #707070;
+      --card: #f8f8f8;
+      --card-foreground: #0a0a0a;
+      --popover: #fff;
+      --popover-foreground: #0a0a0a;
+      --primary: #171717;
+      --primary-foreground: #fafafa;
+      --secondary: #f5f5f5;
+      --secondary-foreground: #171717;
+      --muted: #f5f5f5;
+      --muted-foreground: #707070;
+      --accent: #f5f5f5;
+      --accent-foreground: #171717;
+      --destructive: #e40014;
+      --border: #e5e5e5;
+      --input: #e5e5e5;
+      --ring: #a1a1a1;
+      --sidebar: #fafafa;
+      --primary-brand: #977ed3;
+      --secondary-brand: #51387a;
+      --footer-background: #f0eef9;
+    }
+
+    html.dark {
+      --background: #141414;
+      --foreground: #fff;
+      --header: #fff;
+      --body: #ddd;
+      --body-secondary: #adadad;
+      --card: #1c1c1c;
+      --card-foreground: #fafafa;
+      --popover: #171717;
+      --popover-foreground: #fafafa;
+      --primary: #e5e5e5;
+      --primary-foreground: #171717;
+      --secondary: #262626;
+      --secondary-foreground: #fafafa;
+      --muted: #262626;
+      --muted-foreground: #adadad;
+      --accent: #262626;
+      --accent-foreground: #fafafa;
+      --destructive: #ff6568;
+      --border: rgba(255,255,255,0.1);
+      --input: rgba(255,255,255,0.15);
+      --ring: #737373;
+      --sidebar: #171717;
+      --primary-brand: #977ed3;
+      --secondary-brand: #cdc5ed;
+      --footer-background: #111;
+    }
+
+    /* ─── Reset & Base ──────────────────────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-family: var(--font-outfit);
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--footer-background);
+      color: var(--foreground);
+      font-family: var(--font-outfit);
+      min-height: 100vh;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; background: none; border: none; font-family: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── Layout Wrapper ─────────────────────────────────────────────────── */
+    .site-wrapper {
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--footer-background);
+    }
+
+    .main-surface {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      border-radius: 0 0 12px 12px;
+      background:
+        radial-gradient(800px 300px at 50% 0%, color-mix(in srgb, var(--primary-brand) 15%, transparent) 0%, transparent 100%),
+        linear-gradient(to right, color-mix(in srgb, var(--primary-brand) 4%, transparent) 0%, transparent 150px),
+        linear-gradient(to left, color-mix(in srgb, var(--primary-brand) 4%, transparent) 0%, transparent 150px),
+        var(--background);
+    }
+
+    /* ─── Nav ────────────────────────────────────────────────────────────── */
+    nav {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: transparent;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      justify-self: start;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      font-size: 0.9375rem;
+      color: var(--muted-foreground);
+      text-decoration: none;
+      text-underline-offset: 4px;
+      text-decoration-style: dotted;
+      transition: color 0.15s ease;
+    }
+    .nav-link:hover { color: var(--header); text-decoration: underline; text-decoration-style: dotted; }
+
+    .nav-logo {
+      justify-self: center;
+      color: var(--primary-brand);
+    }
+    .nav-logo svg { display: block; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      justify-self: end;
+    }
+
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 0.375rem;
+      color: var(--body);
+      transition: color 0.15s, background-color 0.15s;
+      text-decoration: none;
+    }
+    .icon-btn:hover { color: var(--primary); text-decoration: underline; text-underline-offset: 4px; }
+    .icon-btn:focus-visible { outline: 3px solid color-mix(in srgb, var(--ring) 50%, transparent); outline-offset: 2px; }
+    .icon-btn svg { width: 1rem; height: 1rem; flex-shrink: 0; pointer-events: none; }
+
+    .theme-toggle-wrapper {
+      display: flex;
+      align-items: center;
+      border-left: 1px solid var(--border);
+      margin-left: 0.75rem;
+      padding-left: 0.75rem;
+    }
+
+    /* ─── Main content ───────────────────────────────────────────────────── */
+    .content-wrapper {
+      display: flex;
+      flex-direction: column;
+      --navbar-height: 72px;
+    }
+
+    .page-body {
+      min-height: calc(100vh - var(--navbar-height));
+      padding: 1.5rem;
+      padding-bottom: 5rem;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ─── Hero Section ───────────────────────────────────────────────────── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-top: 1.5rem;
+    }
+
+    .hero-greeting {
+      font-size: 0.875rem;
+      color: var(--body);
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-name {
+      font-size: clamp(1.5rem, 5vw, 3.25rem);
+      font-weight: 600;
+      color: var(--primary-brand);
+      line-height: 1.15;
+      cursor: default;
+      padding-top: 0.5rem;
+    }
+
+    .name-word {
+      position: relative;
+      display: inline-block;
+    }
+
+    .pronunciation-tooltip {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: none;
+      white-space: nowrap;
+      gap: 0.125rem;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .pronunciation-ipa {
+      font-size: 0.75rem;
+      font-family: var(--font-geist-mono);
+      font-weight: normal;
+      line-height: 1.25;
+      color: var(--body-secondary);
+      opacity: 0;
+      transform: translateY(4px);
+      transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+
+    .pronunciation-phonetic {
+      font-size: 0.875rem;
+      font-weight: normal;
+      line-height: 1.25;
+      color: var(--primary-brand);
+      transform: translateY(4px);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    /* Tooltip container visible when name-word has .hovered class */
+    .name-word.hovered .pronunciation-tooltip {
+      opacity: 1;
+    }
+    .name-word.hovered .pronunciation-phonetic {
+      transform: translateY(0);
+    }
+    /* IPA delayed — added via JS with .ipa-visible class */
+    .name-word.hovered .pronunciation-ipa.ipa-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Greeting fades out on hero-name hover (via JS) */
+    .hero-greeting {
+      transition: opacity 0.3s ease;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1.5rem, 5vw, 3.25rem);
+      font-weight: 600;
+      color: var(--secondary-brand);
+      line-height: 1.15;
+      padding: 0.25rem 0;
+    }
+
+    .hero-role {
+      font-size: clamp(1.125rem, 2vw, 1.375rem);
+      color: var(--body);
+      max-width: 600px;
+      padding-top: 0.5rem;
+    }
+
+    .dotted-link {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-style: dotted;
+      transition: color 0.15s ease;
+    }
+    .dotted-link:hover { color: var(--header); }
+
+    /* ─── Projects Grid ──────────────────────────────────────────────────── */
+    .projects-grid-wrapper {
+      margin-top: 2.5rem;
+    }
+
+    .projects-grid {
+      width: 100%;
+      max-width: 1100px;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-auto-flow: dense;
+    }
+
+    .grid-cell {
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* aspect-square */
+    .aspect-square { aspect-ratio: 1 / 1; }
+    /* aspect-[2/1] */
+    .aspect-2-1 { aspect-ratio: 2 / 1; }
+    /* aspect-[1/2] */
+    .aspect-1-2 { aspect-ratio: 1 / 2; }
+
+    /* Card base */
+    .card {
+      background-color: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+      width: 100%;
+      flex: 1;
+      display: block;
+      position: relative;
+    }
+
+    .card-inner {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      height: 100%;
+    }
+
+    .card-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--body-secondary);
+      position: relative;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      line-height: 1.25;
+      font-weight: 600;
+      text-balance: balance;
+      color: var(--card-foreground);
+      position: relative;
+      padding-top: 2px;
+    }
+
+    /* Standard project card (p-6, image bottom-right) */
+    .project-card {
+      padding: 1.5rem;
+      overflow: hidden;
+      gap: 2px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-desc {
+      font-size: 0.875rem;
+      color: var(--body);
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      text-wrap: pretty;
+      position: relative;
+    }
+
+    .university-meta {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.375rem;
+      position: relative;
+    }
+
+    .university-pill {
+      border: 1px solid color-mix(in srgb, var(--primary-brand) 22%, transparent);
+      border-radius: 999px;
+      padding: 0.25rem 0.5rem;
+      color: var(--body);
+      font-size: 0.75rem;
+      line-height: 1;
+      background: color-mix(in srgb, var(--primary-brand) 8%, transparent);
+    }
+
+    .university-mark {
+      position: absolute;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      display: grid;
+      place-items: center;
+      width: clamp(5rem, 45%, 9rem);
+      aspect-ratio: 1;
+      border: 1px solid color-mix(in srgb, var(--primary-brand) 18%, transparent);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--primary-brand) 22%, transparent), transparent 58%),
+        color-mix(in srgb, var(--primary-brand) 10%, var(--card));
+      color: var(--secondary-brand);
+      font-family: var(--font-geist-mono);
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: 0;
+      opacity: 0.82;
+    }
+
+    .featured-card .university-mark {
+      width: clamp(8rem, 34%, 13rem);
+      right: 2rem;
+      bottom: 1.5rem;
+    }
+
+    .writing-card-note {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 0;
+      flex: 1;
+      border-radius: 0 0 8px 8px;
+      background:
+        linear-gradient(145deg, color-mix(in srgb, var(--primary-brand) 18%, transparent), transparent 55%),
+        color-mix(in srgb, var(--primary-brand) 8%, var(--card));
+    }
+
+    .writing-card-note .university-mark {
+      position: relative;
+      right: auto;
+      bottom: auto;
+      width: min(9rem, 62%);
+      margin: auto auto 1rem;
+    }
+
+    .card-img-wrapper {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      transform: translate(10%, 20%);
+      width: 100%;
+      height: 75%;
+      scale: 0.85;
+      transition: scale 0.3s ease;
+    }
+    .card:hover .card-img-wrapper { scale: 0.9; }
+
+    .card-img-fill {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top left;
+      border-radius: 4px;
+      filter: drop-shadow(0 -4px 12px rgba(0,0,0,0.05));
+    }
+
+    /* Featured card (Mobbin animation — col-span-2) */
+    .featured-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      height: 100%;
+      width: 100%;
+      background-color: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .featured-card-text {
+      position: relative;
+      padding: 1.5rem;
+      padding-right: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .featured-card-media {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 1.5rem;
+      width: 80%;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .featured-card-media-inner {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      height: 100%;
+      width: 100%;
+    }
+
+    .featured-card-media img {
+      pointer-events: none;
+      object-fit: contain;
+      object-position: right bottom;
+      border-radius: 10px 10px 0 0;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .play-badge {
+      pointer-events: none;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: inline-flex;
+      width: 1.25rem;
+      height: 1.25rem;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: rgba(0,0,0,0.2);
+      backdrop-filter: blur(8px);
+      transition: opacity 0.15s ease;
+    }
+    .featured-card:hover .play-badge { opacity: 0; }
+    .play-badge svg { width: 0.625rem; height: 0.625rem; color: white; fill: white; translate: 1px 0; }
+
+    /* Writing card (tall, col-span-1 row-span-2) */
+    .writing-card {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--card);
+      padding: 0.5rem;
+      border-radius: 12px;
+    }
+
+    .writing-card-header {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      padding: 1rem;
+      z-index: 10;
+      background-color: var(--card);
+      width: 100%;
+      gap: 0.25rem;
+    }
+
+    .writing-card-title {
+      font-size: 1.125rem;
+      line-height: 1.25;
+      font-weight: 600;
+      text-balance: balance;
+      color: var(--card-foreground);
+    }
+
+    .arrow-icon {
+      display: inline;
+      width: 1rem;
+      height: 1rem;
+      margin-left: 0.25rem;
+      margin-bottom: 0.25rem;
+      opacity: 0;
+      vertical-align: middle;
+      transition: opacity 0.15s ease, translate 0.15s ease;
+    }
+    .card:hover .arrow-icon { opacity: 1; translate: 2px 0; }
+
+    .writing-card-img-wrapper {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .writing-card-img-inner {
+      position: absolute;
+      inset: 0;
+      border-radius: 0 0 8px 8px;
+      overflow: hidden;
+      opacity: 0.9;
+      height: 100%;
+    }
+
+    .writing-card-img-inner img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.5s ease-out;
+    }
+    .card:hover .writing-card-img-inner img { transform: scale(1.03); }
+
+    .writing-card-img-shadow {
+      position: absolute;
+      top: 0;
+      height: 0.5rem;
+      width: 100%;
+      border-radius: 0 0 8px 8px;
+      background-color: var(--card);
+      box-shadow: 0 0 12px rgba(0,0,0,0.05);
+    }
+
+    /* Photo carousel card */
+    .carousel-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      height: 100%;
+    }
+
+    .carousel-track-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 12px;
+      background-color: rgb(159,159,159);
+    }
+
+    .carousel-track {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .carousel-slide {
+      position: relative;
+      flex-shrink: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .carousel-slide img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      color: #4a3270;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,0.42), transparent 35%),
+        linear-gradient(135deg, #d4c8ee, #977ed3);
+      font-size: clamp(3rem, 13vw, 9rem);
+      font-weight: 700;
+      line-height: 0.95;
+      text-align: center;
+    }
+
+    .photo-placeholder.alt {
+      color: #fff;
+      background:
+        radial-gradient(circle at 70% 30%, rgba(255,255,255,0.32), transparent 38%),
+        linear-gradient(135deg, #977ed3, #51387a);
+    }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+    }
+
+    .carousel-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.15s, scale 0.15s;
+    }
+    .carousel-dot.active { background-color: rgba(255,255,255,1); }
+    .carousel-dot.inactive { background-color: rgba(255,255,255,0.5); }
+
+    .carousel-tooltip {
+      position: absolute;
+      z-index: 10;
+      padding: 0.375rem 0.75rem;
+      border-radius: 0.5rem;
+      background-color: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      color: white;
+      font-size: 0.875rem;
+      white-space: nowrap;
+      pointer-events: none;
+      transition: opacity 0.15s ease-in-out;
+      opacity: 0;
+      top: 0;
+      left: 0;
+      transform: translate(-50%, -120%);
+    }
+
+    /* Talk card */
+    .talk-card {
+      padding: 1.5rem;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background-color: var(--card);
+      border-radius: 12px;
+      height: 100%;
+    }
+
+    .quote-icon {
+      width: 4rem;
+      height: 4rem;
+      color: color-mix(in srgb, var(--body-secondary) 15%, transparent);
+      flex-shrink: 0;
+      margin: -0.5rem;
+      transition: color 0.3s ease, scale 0.3s ease;
+    }
+    .card:hover .quote-icon {
+      color: color-mix(in srgb, var(--body-secondary) 30%, transparent);
+      scale: 1.05;
+    }
+
+    .talk-card-bottom {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .talk-card-title {
+      font-weight: 600;
+      line-height: 1.25;
+      position: relative;
+      font-size: 1.875rem;
+      transition: font-size 0.15s ease;
+    }
+
+    /* Explore all link */
+    .explore-link-wrapper {
+      margin-top: 1rem;
+      margin-right: 1rem;
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .explore-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 1.125rem;
+      color: var(--body);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-style: dotted;
+      transition: color 0.15s ease;
+    }
+    .explore-link:hover { color: var(--header); }
+    .explore-link svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      transition: translate 0.15s ease;
+    }
+    .explore-link:hover svg { translate: 4px 0; }
+
+    /* ─── About / Scroll Text Section ────────────────────────────────────── */
+    .about-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 4rem 0.75rem 30vh;
+    }
+
+    .about-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      font-size: clamp(1.125rem, 2vw, 1.5rem);
+      color: var(--body);
+      max-width: 600px;
+      line-height: 1.625;
+      text-wrap: pretty;
+    }
+
+    .scroll-word {
+      display: inline;
+      transition: opacity 0.3s ease;
+      opacity: 0.5;
+    }
+
+    .scroll-word.lit { opacity: 1; }
+
+    /* ─── Footer ─────────────────────────────────────────────────────────── */
+    footer {
+      position: sticky;
+      bottom: 0;
+      display: flex;
+      height: 300px;
+      width: 100%;
+      background-color: var(--footer-background);
+      padding: 3rem;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    footer .footer-inner {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      width: 100%;
+    }
+
+    /* ─── Mobile nav (hidden on sm+) ─────────────────────────────────────── */
+    @media (max-width: 639px) {
+      .nav-left, .nav-right { display: none; }
+      nav { grid-template-columns: 1fr; justify-items: center; }
+    }
+
+    /* ─── Responsive Grid ────────────────────────────────────────────────── */
+    @media (min-width: 640px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .sm-col-span-2 { grid-column: span 2; }
+      .sm-row-span-2 { grid-row: span 2; }
+      .sm-aspect-2-1 { aspect-ratio: 2 / 1; }
+      .sm-aspect-1-2 { aspect-ratio: 1 / 2; }
+
+      .page-body { padding: 2rem; padding-bottom: 5rem; }
+
+      nav { padding: 1rem 3rem; }
+
+      .featured-card-text { padding-right: 74%; }
+      .featured-card-media { width: 64%; }
+    }
+
+    @media (min-width: 1024px) {
+      .projects-grid { grid-template-columns: repeat(4, 1fr); }
+      .lg-col-span-2 { grid-column: span 2; }
+      .page-body { padding: 2rem; padding-bottom: 5rem; }
+    }
+
+    /* ─── Animations ─────────────────────────────────────────────────────── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-in {
+      animation: fadeInUp 0.5s cubic-bezier(0, 0, 0.2, 1) both;
+    }
+
+    .delay-1 { animation-delay: 0.05s; }
+    .delay-2 { animation-delay: 0.1s; }
+    .delay-3 { animation-delay: 0.15s; }
+    .delay-4 { animation-delay: 0.2s; }
+    .delay-5 { animation-delay: 0.25s; }
+    .delay-6 { animation-delay: 0.3s; }
+    .delay-7 { animation-delay: 0.35s; }
+    .delay-8 { animation-delay: 0.4s; }
+    .delay-9 { animation-delay: 0.45s; }
+    .delay-10 { animation-delay: 0.5s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animate-in { animation: none; }
+      .scroll-word { transition: none; }
+      .card-img-wrapper, .card:hover .card-img-wrapper { transition: none; }
+      .carousel-track { transition: none; }
+      .writing-card-img-inner img, .card:hover .writing-card-img-inner img { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="site-wrapper">
+  <div class="main-surface">
+
+    <!-- NAV -->
+    <nav>
+      <div class="nav-left">
+        <a href="index.html" class="nav-link">Projects</a>
+        <a href="writing.html" class="nav-link">Writing</a>
+        <a href="everything.html" class="nav-link">Everything</a>
+      </div>
+
+      <!-- Logo (handwritten CK signature SVG) -->
+      <a class="nav-logo" href="#" aria-label="Home">
+        <svg width="57" height="43" viewBox="0 0 57 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M31.9199 15.3658C37.9199 4.36426 23.8909 4.27533 16.4201 8.8661C8.1205 13.9662 0.715132 28.5981 11.0659 35.4985C17.0892 39.5141 28.7817 34.0757 32.4479 28.5764" stroke="var(--primary-brand)" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+          <path d="M43.5446 8.92578C43.64 8.92578 41.8428 12.9841 41.7512 13.1897C38.8687 19.6543 35.8915 27.1383 31.8026 32.9361C30.3628 34.9776 34.4251 28.5001 35.721 26.3643C37.3401 23.6956 41.9337 17.4242 45.8145 18.7837C48.7404 19.8087 44.4074 22.6621 43.3771 23.1784C41.1046 24.3172 38.7441 24.7697 36.435 25.6906C36.0617 25.8395 37.3646 25.5211 37.9072 25.5715C40.9158 25.8509 40.8291 37.2601 46.4971 32.5461" stroke="var(--primary-brand)" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+          <path d="M49.7563 29.1865C48.7065 29.1865 48.4661 30.8708 48.9576 31.5267C50.2001 33.1847 52.0902 30.8403 50.469 29.492" stroke="var(--primary-brand)" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+        </svg>
+      </a>
+
+      <div class="nav-right">
+        <!-- GitHub -->
+        <a href="#" target="_blank" rel="noopener" class="icon-btn" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.10256 16.4318C2.74359 17.7159 2.74359 14.2917 1 13.8637M13.2051 19V15.6871C13.2378 15.2789 13.1817 14.8685 13.0404 14.4833C12.8991 14.0981 12.6759 13.7468 12.3856 13.4528C15.1231 13.1532 18 12.1345 18 7.46044C17.9998 6.26524 17.5316 5.11588 16.6923 4.25025C17.0897 3.20459 17.0616 2.04878 16.6138 1.02294C16.6138 1.02294 15.5851 0.723319 13.2051 2.28989C11.207 1.75813 9.10071 1.75813 7.10256 2.28989C4.72256 0.723319 3.69385 1.02294 3.69385 1.02294C3.24607 2.04878 3.21797 3.20459 3.61538 4.25025C2.76985 5.12231 2.30117 6.28205 2.30769 7.48612C2.30769 12.1259 5.18461 13.1446 7.92205 13.4785C7.63523 13.7695 7.41402 14.1166 7.27283 14.4971C7.13164 14.8776 7.07363 15.2831 7.10256 15.6871V19" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+          </svg>
+        </a>
+        <!-- X / Twitter -->
+        <a href="#" target="_blank" rel="noopener" class="icon-btn" aria-label="X">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.1815 8.59491L5.95039 1.27491C5.88973 1.18987 5.80956 1.12054 5.71658 1.07272C5.6236 1.02489 5.52051 0.99996 5.41591 1H2.65497C2.53463 1.00015 2.41665 1.03335 2.31395 1.09596C2.21126 1.15857 2.1278 1.24818 2.07272 1.35497C2.01764 1.46176 1.99307 1.58162 2.00168 1.70142C2.0103 1.82122 2.05178 1.93634 2.12158 2.03418L8.81845 11.4051M11.1815 8.59491L17.8784 17.9658C17.9482 18.0637 17.9897 18.1788 17.9983 18.2986C18.0069 18.4184 17.9824 18.5382 17.9273 18.645C17.8722 18.7518 17.7887 18.8414 17.686 18.904C17.5834 18.9666 17.4654 18.9998 17.345 19H14.5841C14.4795 19 14.3764 18.9751 14.2834 18.9273C14.1904 18.8795 14.1103 18.8101 14.0496 18.7251L8.81845 11.4051M11.1815 8.59491L17.5669 1M8.81845 11.4051L2.43308 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <!-- LinkedIn -->
+        <a href="#" target="_blank" rel="noopener" class="icon-btn" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.6 7.26465C15.0322 7.26465 16.4057 7.83358 17.4184 8.84627C18.4311 9.85897 19 11.2325 19 12.6646V18.9646H15.4V12.6646C15.4 12.1873 15.2104 11.7294 14.8728 11.3919C14.5352 11.0543 14.0774 10.8646 13.6 10.8646C13.1226 10.8646 12.6648 11.0543 12.3272 11.3919C11.9896 11.7294 11.8 12.1873 11.8 12.6646V18.9646H8.2V12.6646C8.2 11.2325 8.76893 9.85897 9.78162 8.84627C10.7943 7.83358 12.1678 7.26465 13.6 7.26465ZM1 8.16465H4.6V18.9646H1V8.16465Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2.8 5.46523C3.79411 5.46523 4.6 4.65935 4.6 3.66523C4.6 2.67112 3.79411 1.86523 2.8 1.86523C1.80589 1.86523 1 2.67112 1 3.66523C1 4.65935 1.80589 5.46523 2.8 5.46523Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <!-- Theme Toggle -->
+        <div class="theme-toggle-wrapper">
+          <button class="icon-btn" aria-label="Toggle theme" id="theme-toggle">
+            <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+            </svg>
+            <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="content-wrapper">
+      <div class="page-body">
+        <main>
+
+          <!-- Hero -->
+          <section class="hero">
+            <p class="hero-greeting animate-in delay-1" id="hero-greeting">Hi there! I'm</p>
+            <h1 class="hero-name animate-in delay-2" id="hero-name">
+              <span class="name-word" id="name-word-first">Braeden
+                <span class="pronunciation-tooltip">
+                  <span class="pronunciation-ipa">/ˈbreɪdən/</span>
+                  <span class="pronunciation-phonetic">BRAY-dən</span>
+                </span>
+              </span>
+              <span> </span>
+              <span class="name-word" id="name-word-last">Lagowski.
+                <span class="pronunciation-tooltip">
+                  <span class="pronunciation-ipa">/ləˈɡaʊski/</span>
+                  <span class="pronunciation-phonetic">lə-GOW-skee</span>
+                </span>
+              </span>
+            </h1>
+            <h2 class="hero-tagline animate-in delay-3">Class of 2026.</h2>
+            <p class="hero-role animate-in delay-4">
+              Senior @
+              <a href="#" class="dotted-link">International School of Stuttgart</a>
+            </p>
+          </section>
+
+          <!-- Projects Bento Grid -->
+          <section class="projects-grid-wrapper animate-in delay-5">
+            <div class="projects-grid">
+
+              <!-- 1. Frankfurt School of Finance and Management — col-span-2 aspect-[2/1] -->
+              <div class="grid-cell aspect-square sm-col-span-2 sm-aspect-2-1">
+                <a class="card" href="#" style="display:block; height:100%; text-decoration:none;">
+                  <div class="featured-card">
+                    <div class="featured-card-text">
+                      <p class="card-label">Germany</p>
+                      <h3 class="card-title">Frankfurt School</h3>
+                      <p class="card-desc">Finance and management application in Frankfurt.</p>
+                      <div class="university-meta">
+                        <span class="university-pill">Frankfurt</span>
+                        <span class="university-pill">Application list</span>
+                      </div>
+                    </div>
+                    <div class="university-mark" aria-hidden="true">FS</div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- 2. Maastricht University -->
+              <div class="grid-cell aspect-square">
+                <a class="card" href="#" style="display:block; height:100%; text-decoration:none;">
+                  <div class="card-inner project-card">
+                    <p class="card-label">Netherlands</p>
+                    <div class="project-card-text">
+                      <h3 class="card-title">Maastricht University</h3>
+                      <p class="card-desc">A cross-border option in the Netherlands with an international student community.</p>
+                      <div class="university-meta">
+                        <span class="university-pill">Maastricht</span>
+                        <span class="university-pill">Applied</span>
+                      </div>
+                    </div>
+                    <div class="university-mark" aria-hidden="true">UM</div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- 3. Erasmus University Rotterdam — tall card -->
+              <div class="grid-cell sm-row-span-2 aspect-square sm-aspect-1-2" style="grid-row: span 2;">
+                <a class="card writing-card" href="#" style="text-decoration:none; display:flex; height:100%;">
+                  <div class="writing-card-header">
+                    <p class="card-label">Netherlands</p>
+                    <h3 class="writing-card-title">
+                      Erasmus University Rotterdam
+                      <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                      </svg>
+                    </h3>
+                  </div>
+                  <div class="writing-card-note">
+                    <div class="university-mark" aria-hidden="true">EUR</div>
+                    <p class="card-desc">Rotterdam-based application choice with a strong business and economics profile.</p>
+                    <div class="university-meta">
+                      <span class="university-pill">Rotterdam</span>
+                      <span class="university-pill">Applied</span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- 4. Copenhagen Business School — tall card -->
+              <div class="grid-cell sm-row-span-2 aspect-square sm-aspect-1-2" style="grid-row: span 2;">
+                <a class="card writing-card" href="#" style="text-decoration:none; display:flex; height:100%;">
+                  <div class="writing-card-header">
+                    <p class="card-label">Denmark</p>
+                    <h3 class="writing-card-title">
+                      Copenhagen Business School
+                      <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                      </svg>
+                    </h3>
+                  </div>
+                  <div class="writing-card-note">
+                    <div class="university-mark" aria-hidden="true">CBS</div>
+                    <p class="card-desc">Business-focused application in Copenhagen.</p>
+                    <div class="university-meta">
+                      <span class="university-pill">Copenhagen</span>
+                      <span class="university-pill">Applied</span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- 5. Photo Carousel — combined 2x2 feature card -->
+              <div class="grid-cell aspect-square sm-col-span-2 sm-row-span-2" style="grid-row: span 2;">
+                <div class="carousel-card" id="carousel">
+                  <div class="carousel-track-wrapper">
+                    <div class="carousel-track" id="carousel-track">
+                      <div class="carousel-slide">
+                        <div class="photo-placeholder" role="img" aria-label="Photo 1">Photo 1</div>
+                      </div>
+                      <div class="carousel-slide">
+                        <div class="photo-placeholder alt" role="img" aria-label="Photo 2">Photo 2</div>
+                      </div>
+                    </div>
+                    <div class="carousel-dots">
+                      <button class="carousel-dot inactive" data-index="0" aria-label="Go to image 1"></button>
+                      <button class="carousel-dot active" data-index="1" aria-label="Go to image 2"></button>
+                    </div>
+                  </div>
+                  <div class="carousel-tooltip" id="carousel-tooltip">Your Company — Location, 2024</div>
+                </div>
+              </div>
+
+              <!-- 6. KU Leuven -->
+              <div class="grid-cell aspect-square">
+                <a class="card" href="#" style="display:block; height:100%; text-decoration:none;">
+                  <div class="card-inner project-card">
+                    <div class="project-card-text">
+                      <p class="card-label">Belgium</p>
+                      <h3 class="card-title">KU Leuven</h3>
+                      <p class="card-desc">Applied to one of Europe's historic research universities in Leuven.</p>
+                      <div class="university-meta">
+                        <span class="university-pill">Leuven</span>
+                        <span class="university-pill">Applied</span>
+                      </div>
+                    </div>
+                    <div class="university-mark" aria-hidden="true">KUL</div>
+                  </div>
+                </a>
+              </div>
+
+            </div>
+
+            <!-- Explore everything link -->
+            <div class="explore-link-wrapper">
+              <a href="#" class="explore-link">
+                Explore everything
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </section>
+
+          <!-- About / Scroll-lit text section -->
+          <section class="about-section" id="about-section">
+            <div class="about-text" id="about-text">
+              <p>
+                <span class="scroll-word">My </span><span class="scroll-word">name </span><span class="scroll-word">is </span><span class="scroll-word">Braeden </span><span class="scroll-word">Lagowski, </span><span class="scroll-word">and </span><span class="scroll-word">I'm </span><span class="scroll-word">graduating </span><span class="scroll-word">from </span><span class="scroll-word">high </span><span class="scroll-word">school </span><span class="scroll-word">with </span><span class="scroll-word">gratitude </span><span class="scroll-word">for </span><span class="scroll-word">the </span><span class="scroll-word">experiences, </span><span class="scroll-word">people, </span><span class="scroll-word">and </span><span class="scroll-word">lessons </span><span class="scroll-word">that </span><span class="scroll-word">have </span><span class="scroll-word">shaped </span><span class="scroll-word">this </span><span class="scroll-word">stage </span><span class="scroll-word">of </span><span class="scroll-word">my </span><span class="scroll-word">life.</span>
+              </p>
+              <p>
+                <span class="scroll-word">This </span><span class="scroll-word">website </span><span class="scroll-word">is </span><span class="scroll-word">a </span><span class="scroll-word">space </span><span class="scroll-word">to </span><span class="scroll-word">celebrate </span><span class="scroll-word">that </span><span class="scroll-word">milestone, </span><span class="scroll-word">reflect </span><span class="scroll-word">on </span><span class="scroll-word">the </span><span class="scroll-word">journey </span><span class="scroll-word">so </span><span class="scroll-word">far, </span><span class="scroll-word">and </span><span class="scroll-word">share </span><span class="scroll-word">what </span><span class="scroll-word">lies </span><span class="scroll-word">ahead. </span><span class="scroll-word">I'm </span><span class="scroll-word">thankful </span><span class="scroll-word">for </span><span class="scroll-word">the </span><span class="scroll-word">support </span><span class="scroll-word">of </span><span class="scroll-word">my </span><span class="scroll-word">family, </span><span class="scroll-word">friends, </span><span class="scroll-word">teachers, </span><span class="scroll-word">and </span><span class="scroll-word">mentors, </span><span class="scroll-word">whose </span><span class="scroll-word">guidance </span><span class="scroll-word">has </span><span class="scroll-word">helped </span><span class="scroll-word">me </span><span class="scroll-word">grow </span><span class="scroll-word">both </span><span class="scroll-word">personally </span><span class="scroll-word">and </span><span class="scroll-word">academically.</span>
+              </p>
+              <p>
+                <span class="scroll-word">As </span><span class="scroll-word">I </span><span class="scroll-word">look </span><span class="scroll-word">toward </span><span class="scroll-word">the </span><span class="scroll-word">future, </span><span class="scroll-word">I'm </span><span class="scroll-word">excited </span><span class="scroll-word">to </span><span class="scroll-word">begin </span><span class="scroll-word">a </span><span class="scroll-word">new </span><span class="scroll-word">chapter </span><span class="scroll-word">studying </span><span class="scroll-word">in </span><span class="scroll-word">Europe, </span><span class="scroll-word">where </span><span class="scroll-word">I </span><span class="scroll-word">hope </span><span class="scroll-word">to </span><span class="scroll-word">broaden </span><span class="scroll-word">my </span><span class="scroll-word">perspective </span><span class="scroll-word">and </span><span class="scroll-word">continue </span><span class="scroll-word">developing </span><span class="scroll-word">my </span><span class="scroll-word">interests. </span><span class="scroll-word">At </span><span class="scroll-word">the </span><span class="scroll-word">moment, </span><span class="scroll-word">I'm </span><span class="scroll-word">awaiting </span><span class="scroll-word">decisions </span><span class="scroll-word">on </span><span class="scroll-word">my </span><span class="scroll-word">university </span><span class="scroll-word">applications.</span>
+              </p>
+              <p>
+                <span class="scroll-word">If </span><span class="scroll-word">you </span><span class="scroll-word">want </span><span class="scroll-word">to </span><span class="scroll-word">say </span><span class="scroll-word">hi, </span><span class="scroll-word">you </span><span class="scroll-word">can </span><span class="scroll-word">find </span><span class="scroll-word">me </span><span class="scroll-word">on </span><span class="scroll-word"><a href="#" target="_blank" rel="noopener noreferrer" class="dotted-link">Facebook</a>, </span><span class="scroll-word"><a href="#" target="_blank" rel="noopener noreferrer" class="dotted-link">LinkedIn</a>, </span><span class="scroll-word">or </span><span class="scroll-word">at </span><span class="scroll-word"><a href="mailto:braeden.lagowski1@gmail.com" class="dotted-link">braeden.lagowski1@gmail.com</a>.</span>
+              </p>
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer (sticky behind main) -->
+<footer>
+  <div class="footer-inner"></div>
+</footer>
+
+<script>
+  // ─── Theme Toggle ─────────────────────────────────────────────────────────
+  const html = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+  const iconSun = document.getElementById('icon-sun');
+  const iconMoon = document.getElementById('icon-moon');
+
+  function setTheme(dark) {
+    if (dark) {
+      html.classList.remove('light');
+      html.classList.add('dark');
+      iconSun.style.display = 'none';
+      iconMoon.style.display = '';
+    } else {
+      html.classList.remove('dark');
+      html.classList.add('light');
+      iconSun.style.display = '';
+      iconMoon.style.display = 'none';
+    }
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  }
+
+  // Init
+  const saved = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  setTheme(saved ? saved === 'dark' : prefersDark);
+
+  toggle.addEventListener('click', () => {
+    setTheme(!html.classList.contains('dark'));
+  });
+
+  // ─── Name Pronunciation Hover ─────────────────────────────────────────────
+  const heroName     = document.getElementById('hero-name');
+  const heroGreeting = document.getElementById('hero-greeting');
+  const nameWords    = document.querySelectorAll('.name-word');
+  let ipaTimers      = [];
+
+  function showTooltip(wordEl) {
+    wordEl.classList.add('hovered');
+    const ipa = wordEl.querySelector('.pronunciation-ipa');
+    const timer = setTimeout(() => ipa.classList.add('ipa-visible'), 500);
+    ipaTimers.push(timer);
+  }
+
+  function hideTooltip(wordEl) {
+    wordEl.classList.remove('hovered');
+    wordEl.querySelector('.pronunciation-ipa').classList.remove('ipa-visible');
+  }
+
+  heroName.addEventListener('mouseenter', () => {
+    heroGreeting.style.opacity = '0';
+    nameWords.forEach(showTooltip);
+  });
+
+  heroName.addEventListener('mouseleave', () => {
+    heroGreeting.style.opacity = '';
+    ipaTimers.forEach(clearTimeout);
+    ipaTimers = [];
+    nameWords.forEach(hideTooltip);
+  });
+
+  // ─── Carousel ────────────────────────────────────────────────────────────
+  const track = document.getElementById('carousel-track');
+  const dots = document.querySelectorAll('.carousel-dot');
+  let currentSlide = 1; // start on second slide (matches original)
+
+  function goToSlide(idx) {
+    currentSlide = idx;
+    // Use negative translate: slide 0 = 0%, slide 1 = -100%
+    track.style.transform = `translateX(${-100 * idx}%)`;
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === idx);
+      dot.classList.toggle('inactive', i !== idx);
+    });
+  }
+
+  // Init
+  goToSlide(currentSlide);
+
+  dots.forEach((dot) => {
+    dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.index)));
+  });
+
+  // Touch/drag support
+  let startX = 0;
+  let isDragging = false;
+  const carouselEl = document.getElementById('carousel');
+
+  carouselEl.addEventListener('pointerdown', (e) => {
+    startX = e.clientX;
+    isDragging = true;
+  });
+
+  carouselEl.addEventListener('pointerup', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    const diff = e.clientX - startX;
+    if (diff < -40 && currentSlide < dots.length - 1) goToSlide(currentSlide + 1);
+    if (diff > 40 && currentSlide > 0) goToSlide(currentSlide - 1);
+  });
+
+  // ─── Scroll-lit Text ──────────────────────────────────────────────────────
+  const words = document.querySelectorAll('.scroll-word');
+
+  function updateScrollLit() {
+    const viewportMid = window.innerHeight * 0.55;
+    words.forEach((word) => {
+      const rect = word.getBoundingClientRect();
+      const wordCenter = rect.top + rect.height / 2;
+      word.classList.toggle('lit', wordCenter < viewportMid);
+    });
+  }
+
+  window.addEventListener('scroll', updateScrollLit, { passive: true });
+  updateScrollLit();
+</script>
+
+</body>
+</html>
