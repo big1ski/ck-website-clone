@@ -71,13 +71,24 @@
       display: grid; grid-template-columns: 1fr auto 1fr;
       align-items: center; padding: 1rem 2rem; background: transparent;
     }
-    .nav-left { display: flex; align-items: center; gap: 2rem; justify-self: start; }
+    .nav-left { display: flex; align-items: center; gap: 1.5rem; justify-self: start; }
     .nav-link {
       font-weight: 500; font-size: 0.9375rem; color: var(--muted-foreground);
       text-underline-offset: 4px; text-decoration-style: dotted; transition: color 0.15s ease;
     }
     .nav-link:hover { color: var(--header); text-decoration: underline; text-decoration-style: dotted; }
     .nav-link.active { color: var(--header); font-weight: 600; }
+    .nav-link.gift-nav {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.55rem 1rem; border-radius: 0.875rem;
+      background: var(--primary-brand); color: #fff; font-weight: 600;
+      box-shadow: 0 12px 28px color-mix(in srgb, var(--primary-brand) 24%, transparent);
+    }
+    .nav-link.gift-nav:hover,
+    .nav-link.gift-nav.active {
+      color: #fff; text-decoration: none;
+      background: var(--secondary-brand);
+    }
     .nav-logo { justify-self: center; color: var(--primary-brand); }
     .nav-logo svg { display: block; }
     .nav-right { display: flex; align-items: center; gap: 0.5rem; justify-self: end; }
@@ -466,6 +477,7 @@
         <a href="projects.html" class="nav-link active">Projects</a>
         <a href="activities.html" class="nav-link">Activities</a>
         <a href="everything.html" class="nav-link">Everything</a>
+        <a href="gift.html" class="nav-link gift-nav">Send a Gift</a>
       </div>
       <a class="nav-logo" href="index.html" aria-label="Home" style="font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; font-style: italic;">BL.</a>
       <div class="nav-right">

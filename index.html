@@ -131,7 +131,7 @@
     .nav-left {
       display: flex;
       align-items: center;
-      gap: 2rem;
+      gap: 1.5rem;
       justify-self: start;
     }
 
@@ -145,6 +145,23 @@
       transition: color 0.15s ease;
     }
     .nav-link:hover { color: var(--header); text-decoration: underline; text-decoration-style: dotted; }
+    .nav-link.gift-nav {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.55rem 1rem;
+      border-radius: 0.875rem;
+      background: var(--primary-brand);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 12px 28px color-mix(in srgb, var(--primary-brand) 24%, transparent);
+    }
+    .nav-link.gift-nav:hover,
+    .nav-link.gift-nav.active {
+      color: #fff;
+      text-decoration: none;
+      background: var(--secondary-brand);
+    }
 
     .nav-logo {
       justify-self: center;
@@ -923,6 +940,7 @@
         <a href="projects.html" class="nav-link">Projects</a>
         <a href="activities.html" class="nav-link">Activities</a>
         <a href="everything.html" class="nav-link">Everything</a>
+        <a href="gift.html" class="nav-link gift-nav">Send a Gift</a>
       </div>
 
       <!-- Logo (handwritten CK signature SVG) -->
