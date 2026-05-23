@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Braeden Lagowski</title>
+  <title>Activities — Braeden Lagowski</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet" />
@@ -446,13 +446,16 @@
     .delay-2 { animation-delay: 0.1s; }
     .delay-3 { animation-delay: 0.15s; }
 
+    .category-page main { padding-top: clamp(2.5rem, 7vw, 5rem); }
+    @media (max-width: 639px) { .category-page main { padding-top: 1.5rem; } }
+
     @media (prefers-reduced-motion: reduce) {
       .animate-in { animation: none; }
       .carousel-track { transition: none; }
     }
   </style>
 </head>
-<body>
+<body class="category-page">
 
 <div class="site-wrapper">
   <div class="main-surface">
@@ -461,8 +464,8 @@
     <nav>
       <div class="nav-left">
         <a href="projects.html" class="nav-link">Projects</a>
-        <a href="activities.html" class="nav-link">Activities</a>
-        <a href="everything.html" class="nav-link active">Everything</a>
+        <a href="activities.html" class="nav-link active">Activities</a>
+        <a href="everything.html" class="nav-link">Everything</a>
       </div>
       <a class="nav-logo" href="index.html" aria-label="Home" style="font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; font-style: italic;">BL.</a>
       <div class="nav-right">
@@ -487,144 +490,8 @@
       <div class="page-body">
         <main>
 
-          <!-- Folders row -->
-          <div class="page-section animate-in delay-1">
-            <div class="folders-row" id="folders-row">
-
-              <!-- Projects -->
-              <div class="folder-wrap">
-                <button class="folder-btn" data-filter="projects">
-                  <div class="folder-body">
-                    <div class="folder-tab-nub"></div>
-                    <div class="folder-body-bg"></div>
-                  </div>
-                  <div class="folder-img-1"><img src="Everything — Charisma Kausar_files/mobbin-animations-poster.png" alt="" /></div>
-                  <div class="folder-img-2"><img src="Everything — Charisma Kausar_files/mobbin-competitor-research.png" alt="" /></div>
-                  <div class="folder-img-3"><img src="Everything — Charisma Kausar_files/folio-grid.png" alt="" /></div>
-                  <div class="folder-footer-wrap">
-                    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" preserveAspectRatio="none" viewBox="0 0 200 100">
-                      <defs><clipPath id="clip-projects"><path d="M 8,18 Q 8,12 14,12 L 56,12 Q 62,12 64,18 L 66,22 L 192,22 Q 200,22 200,30 L 200,92 Q 200,100 192,100 L 8,100 Q 0,100 0,92 L 0,26 Q 0,18 8,18 Z"/></clipPath></defs>
-                    </svg>
-                    <div class="folder-footer-clip" style="clip-path:url(#clip-projects)">
-                      <div class="folder-footer-inner">
-                        <span class="folder-name">Projects</span>
-                        <svg class="folder-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
-                      </div>
-                    </div>
-                  </div>
-                </button>
-              </div>
-
-              <!-- Activities -->
-              <div class="folder-wrap">
-                <button class="folder-btn" data-filter="activities">
-                  <div class="folder-body">
-                    <div class="folder-tab-nub"></div>
-                    <div class="folder-body-bg"></div>
-                  </div>
-                  <div class="folder-img-1"><img src="Everything — Charisma Kausar_files/women-in-stem-tcs-formula-1.jpg" alt="" /></div>
-                  <div class="folder-img-2"><img src="Everything — Charisma Kausar_files/women-in-tech-career-human-library.jpg" alt="" /></div>
-                  <div class="folder-img-3"><img src="https://placehold.co/80x100/e4d8f0/51387a?text=A" alt="" /></div>
-                  <div class="folder-footer-wrap">
-                    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" preserveAspectRatio="none" viewBox="0 0 200 100">
-                      <defs><clipPath id="clip-activities"><path d="M 8,18 Q 8,12 14,12 L 56,12 Q 62,12 64,18 L 66,22 L 192,22 Q 200,22 200,30 L 200,92 Q 200,100 192,100 L 8,100 Q 0,100 0,92 L 0,26 Q 0,18 8,18 Z"/></clipPath></defs>
-                    </svg>
-                    <div class="folder-footer-clip" style="clip-path:url(#clip-activities)">
-                      <div class="folder-footer-inner">
-                        <span class="folder-name">Activities</span>
-                        <svg class="folder-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 8L9 4l-3 8H2"/></svg>
-                      </div>
-                    </div>
-                  </div>
-                </button>
-              </div>
-
-              <!-- Reading -->
-              <div class="folder-wrap">
-                <button class="folder-btn" data-filter="reading">
-                  <div class="folder-body">
-                    <div class="folder-tab-nub"></div>
-                    <div class="folder-body-bg"></div>
-                  </div>
-                  <div class="folder-img-1"><img src="https://placehold.co/80x100/2c3e50/ecf0f1?text=Book" alt="" /></div>
-                  <div class="folder-img-2"><img src="https://placehold.co/80x100/e8c547/2c3e50?text=Book" alt="" /></div>
-                  <div class="folder-img-3"><img src="https://placehold.co/80x100/c0392b/fff?text=Book" alt="" /></div>
-                  <div class="folder-footer-wrap">
-                    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" preserveAspectRatio="none" viewBox="0 0 200 100">
-                      <defs><clipPath id="clip-reading"><path d="M 8,18 Q 8,12 14,12 L 56,12 Q 62,12 64,18 L 66,22 L 192,22 Q 200,22 200,30 L 200,92 Q 200,100 192,100 L 8,100 Q 0,100 0,92 L 0,26 Q 0,18 8,18 Z"/></clipPath></defs>
-                    </svg>
-                    <div class="folder-footer-clip" style="clip-path:url(#clip-reading)">
-                      <div class="folder-footer-inner">
-                        <span class="folder-name">Reading</span>
-                        <svg class="folder-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                      </div>
-                    </div>
-                  </div>
-                </button>
-              </div>
-
-              <!-- Trips -->
-              <div class="folder-wrap">
-                <button class="folder-btn" data-filter="trips">
-                  <div class="folder-body">
-                    <div class="folder-tab-nub"></div>
-                    <div class="folder-body-bg"></div>
-                  </div>
-                  <div class="folder-img-1"><img src="Everything — Charisma Kausar_files/istanbul-blue-mosque.jpg" alt="" /></div>
-                  <div class="folder-img-2"><img src="Everything — Charisma Kausar_files/cappadocia-love-valley.jpg" alt="" /></div>
-                  <div class="folder-img-3"><img src="Everything — Charisma Kausar_files/dubai-burj-khalifa.jpg" alt="" /></div>
-                  <div class="folder-footer-wrap">
-                    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" preserveAspectRatio="none" viewBox="0 0 200 100">
-                      <defs><clipPath id="clip-trips"><path d="M 8,18 Q 8,12 14,12 L 56,12 Q 62,12 64,18 L 66,22 L 192,22 Q 200,22 200,30 L 200,92 Q 200,100 192,100 L 8,100 Q 0,100 0,92 L 0,26 Q 0,18 8,18 Z"/></clipPath></defs>
-                    </svg>
-                    <div class="folder-footer-clip" style="clip-path:url(#clip-trips)">
-                      <div class="folder-footer-inner">
-                        <span class="folder-name">Trips</span>
-                        <svg class="folder-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-                      </div>
-                    </div>
-                  </div>
-                </button>
-              </div>
-
-              <!-- Gallery -->
-              <div class="folder-wrap">
-                <button class="folder-btn" data-filter="gallery">
-                  <div class="folder-body">
-                    <div class="folder-tab-nub"></div>
-                    <div class="folder-body-bg"></div>
-                  </div>
-                  <div class="folder-img-1"><img src="Everything — Charisma Kausar_files/singapore-bird-paradise-flamingos.jpg" alt="" /></div>
-                  <div class="folder-img-2"><img src="Everything — Charisma Kausar_files/singapore-botanic-gardens-symphony-stage.jpg" alt="" /></div>
-                  <div class="folder-img-3"><img src="Everything — Charisma Kausar_files/singapore-river-cruise.jpg" alt="" /></div>
-                  <div class="folder-footer-wrap">
-                    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" preserveAspectRatio="none" viewBox="0 0 200 100">
-                      <defs><clipPath id="clip-gallery"><path d="M 8,18 Q 8,12 14,12 L 56,12 Q 62,12 64,18 L 66,22 L 192,22 Q 200,22 200,30 L 200,92 Q 200,100 192,100 L 8,100 Q 0,100 0,92 L 0,26 Q 0,18 8,18 Z"/></clipPath></defs>
-                    </svg>
-                    <div class="folder-footer-clip" style="clip-path:url(#clip-gallery)">
-                      <div class="folder-footer-inner">
-                        <span class="folder-name">Gallery</span>
-                        <svg class="folder-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-                      </div>
-                    </div>
-                  </div>
-                </button>
-              </div>
-
-            </div><!-- /folders-row -->
-          </div>
-
-          <!-- Search -->
-          <div class="page-section animate-in delay-2">
-            <div class="search-wrapper">
-              <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              <input type="search" class="search-input" id="search-input" placeholder="Search everything..." autocomplete="off" />
-            </div>
-          </div>
-
           <!-- Feed Grid -->
           <div class="feed-grid page-section animate-in delay-3" id="feed-grid">
-
             <!-- Activity: NUS Women in Tech -->
             <div class="feed-cell aspect-sq" data-type="activities" data-title="NUS Women in Tech">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
@@ -637,75 +504,6 @@
               </a>
             </div>
 
-            <!-- Book: Pragmatic Thinking and Learning -->
-            <div class="feed-cell aspect-sq" data-type="reading" data-title="Pragmatic Thinking and Learning">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="book-card">
-                  <div class="book-cover-area">
-                    <div class="book-cover">
-                      <img src="https://placehold.co/200x300/4a7c59/fff?text=Pragmatic+Thinking" alt="Pragmatic Thinking and Learning" loading="lazy" />
-                      <div class="book-spine"></div>
-                    </div>
-                  </div>
-                  <div><div class="book-title">Pragmatic Thinking and Learning</div><div class="book-author">Andy Hunt</div></div>
-                </div>
-              </a>
-            </div>
-
-            <!-- Featured: Screenshot to Design (Mobbin) — 2 col -->
-            <div class="feed-cell span-2 aspect-2-1" data-type="projects" data-title="Screenshot to Design Mobbin">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="featured-card">
-                  <div class="play-badge" aria-hidden="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>
-                  </div>
-                  <div class="featured-card-text">
-                    <p class="card-label">Mobbin</p>
-                    <h3 class="card-title">Screenshot to Design</h3>
-                  </div>
-                  <div class="featured-card-media">
-                    <img src="Everything — Charisma Kausar_files/mobbin-animations-poster.png" alt="Screenshot to Design" loading="eager" />
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <!-- Photo carousel: Qatar cave -->
-            <div class="feed-cell span-2 aspect-2-1" data-type="trips" data-title="Qatar Photos">
-              <div class="carousel-card" id="carousel-qatar">
-                <div class="carousel-track-wrapper">
-                  <div class="carousel-track" id="track-qatar">
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/qatar-misfir-cave.jpg" alt="Qatar Misfir Cave" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/brouq-zekreet-rock-formations.jpg" alt="Brouq Zekreet Rock Formations" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/doha-corniche-dinner-in-the-sky.jpg" alt="Doha Corniche Dinner in the Sky" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/qatar-national-day-horse-parade.jpg" alt="Qatar National Day Horse Parade" loading="lazy" /></div>
-                  </div>
-                  <div class="carousel-dots" id="dots-qatar">
-                    <button class="carousel-dot active" data-index="0"></button>
-                    <button class="carousel-dot inactive" data-index="1"></button>
-                    <button class="carousel-dot inactive" data-index="2"></button>
-                    <button class="carousel-dot inactive" data-index="3"></button>
-                  </div>
-                </div>
-                <div class="carousel-tooltip" id="tooltip-qatar">Qatar — 2024</div>
-              </div>
-            </div>
-
-            <!-- Book: Atomic Habits -->
-            <div class="feed-cell aspect-sq" data-type="reading" data-title="Atomic Habits">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="book-card">
-                  <div class="book-cover-area">
-                    <div class="book-cover">
-                      <img src="https://placehold.co/200x300/e8c547/2c3e50?text=Atomic+Habits" alt="Atomic Habits" loading="lazy" />
-                      <div class="book-spine"></div>
-                    </div>
-                  </div>
-                  <div><div class="book-title">Atomic Habits</div><div class="book-author">James Clear</div></div>
-                </div>
-              </a>
-            </div>
-
             <!-- Activity: Women in STEM TCS F1 -->
             <div class="feed-cell aspect-sq" data-type="activities" data-title="Women in STEM TCS Formula 1">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
@@ -714,66 +512,6 @@
                   <div class="hat-title">Women in STEM — TCS Formula 1</div>
                   <div class="hat-role">Panelist</div>
                   <div class="hat-image"><img src="Everything — Charisma Kausar_files/women-in-stem-tcs-formula-1.jpg" alt="Women in STEM TCS Formula 1" loading="lazy" /></div>
-                </div>
-              </a>
-            </div>
-
-            <!-- Project: Mobbin Enterprise -->
-            <div class="feed-cell aspect-sq" data-type="projects" data-title="Mobbin Enterprise">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="card-inner project-card">
-                  <p class="card-label">Mobbin</p>
-                  <div><h3 class="card-title">Enterprise</h3><p class="card-desc">Team workspace for design research</p></div>
-                  <div class="card-img-wrapper" style="position:absolute;">
-                    <img class="card-img-fill" src="Everything — Charisma Kausar_files/mobbin-enterprise.png" alt="Mobbin Enterprise" loading="lazy" />
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <!-- Istanbul carousel -->
-            <div class="feed-cell span-2 aspect-2-1" data-type="trips" data-title="Istanbul Photos">
-              <div class="carousel-card" id="carousel-istanbul">
-                <div class="carousel-track-wrapper">
-                  <div class="carousel-track" id="track-istanbul">
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/istanbul-blue-mosque.jpg" alt="Istanbul Blue Mosque" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/istanbul-bosphorus-ortakoy-mosque.jpg" alt="Istanbul Bosphorus" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/istanbul-istiklal-street.jpg" alt="Istanbul Istiklal Street" loading="lazy" /></div>
-                  </div>
-                  <div class="carousel-dots" id="dots-istanbul">
-                    <button class="carousel-dot active" data-index="0"></button>
-                    <button class="carousel-dot inactive" data-index="1"></button>
-                    <button class="carousel-dot inactive" data-index="2"></button>
-                  </div>
-                </div>
-                <div class="carousel-tooltip" id="tooltip-istanbul">Istanbul, Turkey</div>
-              </div>
-            </div>
-
-            <!-- Book: Deep Work -->
-            <div class="feed-cell aspect-sq" data-type="reading" data-title="Deep Work">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="book-card">
-                  <div class="book-cover-area">
-                    <div class="book-cover">
-                      <img src="https://placehold.co/200x300/1a1a2e/e0e0ff?text=Deep+Work" alt="Deep Work" loading="lazy" />
-                      <div class="book-spine"></div>
-                    </div>
-                  </div>
-                  <div><div class="book-title">Deep Work</div><div class="book-author">Cal Newport</div></div>
-                </div>
-              </a>
-            </div>
-
-            <!-- Project: Artisan -->
-            <div class="feed-cell aspect-sq" data-type="projects" data-title="Artisan">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="card-inner project-card">
-                  <p class="card-label">Product</p>
-                  <div><h3 class="card-title">Artisan</h3><p class="card-desc">AI-powered creative toolkit</p></div>
-                  <div class="card-img-wrapper" style="position:absolute;">
-                    <img class="card-img-fill" src="Everything — Charisma Kausar_files/artisan.png" alt="Artisan" loading="lazy" />
-                  </div>
                 </div>
               </a>
             </div>
@@ -797,55 +535,6 @@
               </a>
             </div>
 
-            <!-- Project: FolioGrid -->
-            <div class="feed-cell aspect-sq" data-type="projects" data-title="FolioGrid">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="card-inner project-card">
-                  <p class="card-label">Collection</p>
-                  <div><h3 class="card-title">FolioGrid</h3><p class="card-desc">Curated developer websites</p></div>
-                  <div class="card-img-wrapper" style="position:absolute;">
-                    <img class="card-img-fill" src="Everything — Charisma Kausar_files/folio-grid.png" alt="FolioGrid" loading="lazy" />
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <!-- Cappadocia carousel -->
-            <div class="feed-cell span-2 aspect-2-1" data-type="trips" data-title="Cappadocia Photos">
-              <div class="carousel-card" id="carousel-cappadocia">
-                <div class="carousel-track-wrapper">
-                  <div class="carousel-track" id="track-cappadocia">
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/cappadocia-soganli-valley-hot-air-balloons.jpg" alt="Cappadocia Hot Air Balloons" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/cappadocia-love-valley.jpg" alt="Cappadocia Love Valley" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/pamukkale-travertines.jpg" alt="Pamukkale Travertines" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/pamukkale-hierapolis-ancient-theater.jpg" alt="Pamukkale Hierapolis" loading="lazy" /></div>
-                  </div>
-                  <div class="carousel-dots" id="dots-cappadocia">
-                    <button class="carousel-dot active" data-index="0"></button>
-                    <button class="carousel-dot inactive" data-index="1"></button>
-                    <button class="carousel-dot inactive" data-index="2"></button>
-                    <button class="carousel-dot inactive" data-index="3"></button>
-                  </div>
-                </div>
-                <div class="carousel-tooltip" id="tooltip-cappadocia">Cappadocia, Turkey</div>
-              </div>
-            </div>
-
-            <!-- Book: The Mom Test -->
-            <div class="feed-cell aspect-sq" data-type="reading" data-title="The Mom Test">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="book-card">
-                  <div class="book-cover-area">
-                    <div class="book-cover">
-                      <img src="https://placehold.co/200x300/2c3e50/ecf0f1?text=The+Mom+Test" alt="The Mom Test" loading="lazy" />
-                      <div class="book-spine"></div>
-                    </div>
-                  </div>
-                  <div><div class="book-title">The Mom Test</div><div class="book-author">Rob Fitzpatrick</div></div>
-                </div>
-              </a>
-            </div>
-
             <!-- Activity: Yuen Jien / Perth yacht -->
             <div class="feed-cell aspect-sq" data-type="activities" data-title="Perth Yacht">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
@@ -865,27 +554,6 @@
               </a>
             </div>
 
-            <!-- Dubai carousel -->
-            <div class="feed-cell span-2 aspect-2-1" data-type="trips" data-title="Dubai Photos">
-              <div class="carousel-card" id="carousel-dubai">
-                <div class="carousel-track-wrapper">
-                  <div class="carousel-track" id="track-dubai">
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/dubai-burj-khalifa.jpg" alt="Dubai Burj Khalifa" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/dubai-creek-abra-boat-ride.jpg" alt="Dubai Creek" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/dubai-desert-dallah-coffee-pot-sculpture.jpg" alt="Dubai Desert" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/dubai-desert-sand-team.jpg" alt="Dubai Desert Team" loading="lazy" /></div>
-                  </div>
-                  <div class="carousel-dots" id="dots-dubai">
-                    <button class="carousel-dot active" data-index="0"></button>
-                    <button class="carousel-dot inactive" data-index="1"></button>
-                    <button class="carousel-dot inactive" data-index="2"></button>
-                    <button class="carousel-dot inactive" data-index="3"></button>
-                  </div>
-                </div>
-                <div class="carousel-tooltip" id="tooltip-dubai">Dubai, UAE</div>
-              </div>
-            </div>
-
             <!-- Activity: FIFA World Cup 2022 -->
             <div class="feed-cell aspect-sq" data-type="activities" data-title="FIFA World Cup 2022">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
@@ -898,39 +566,6 @@
               </a>
             </div>
 
-            <!-- Project: Mobbin Competitor Research -->
-            <div class="feed-cell aspect-sq" data-type="projects" data-title="Mobbin Competitor Research">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="card-inner project-card">
-                  <p class="card-label">Mobbin</p>
-                  <div><h3 class="card-title">Competitor Research</h3><p class="card-desc">Mapping the design research landscape</p></div>
-                  <div class="card-img-wrapper" style="position:absolute;">
-                    <img class="card-img-fill" src="Everything — Charisma Kausar_files/mobbin-competitor-research.png" alt="Mobbin Competitor Research" loading="lazy" />
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <!-- Singapore carousel -->
-            <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Singapore Photos">
-              <div class="carousel-card" id="carousel-singapore">
-                <div class="carousel-track-wrapper">
-                  <div class="carousel-track" id="track-singapore">
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/singapore-bird-paradise-flamingos.jpg" alt="Singapore Bird Paradise" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/singapore-botanic-gardens-symphony-stage.jpg" alt="Singapore Botanic Gardens" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/singapore-museum-of-ice-cream-sprinkle-pool.jpg" alt="Museum of Ice Cream" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/singapore-river-cruise.jpg" alt="Singapore River Cruise" loading="lazy" /></div>
-                  </div>
-                  <div class="carousel-dots" id="dots-singapore">
-                    <button class="carousel-dot active" data-index="0"></button>
-                    <button class="carousel-dot inactive" data-index="1"></button>
-                    <button class="carousel-dot inactive" data-index="2"></button>
-                    <button class="carousel-dot inactive" data-index="3"></button>
-                  </div>
-                </div>
-                <div class="carousel-tooltip" id="tooltip-singapore">Singapore</div>
-              </div>
-            </div>
 
           </div><!-- /feed-grid -->
 
@@ -948,85 +583,19 @@
 <script>
   // ─── Theme ────────────────────────────────────────────────────────────────
   const html = document.documentElement;
-  const toggle = document.getElementById('theme-toggle');
-  const iconSun = document.getElementById('icon-sun');
-  const iconMoon = document.getElementById('icon-moon');
+  const toggle = document.getElementById("theme-toggle");
+  const iconSun = document.getElementById("icon-sun");
+  const iconMoon = document.getElementById("icon-moon");
   function setTheme(dark) {
-    html.classList.toggle('dark', dark);
-    html.classList.toggle('light', !dark);
-    iconSun.style.display  = dark ? 'none' : '';
-    iconMoon.style.display = dark ? '' : 'none';
-    localStorage.setItem('theme', dark ? 'dark' : 'light');
+    html.classList.toggle("dark", dark);
+    html.classList.toggle("light", !dark);
+    iconSun.style.display  = dark ? "none" : "";
+    iconMoon.style.display = dark ? "" : "none";
+    localStorage.setItem("theme", dark ? "dark" : "light");
   }
-  const saved = localStorage.getItem('theme');
-  setTheme(saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches);
-  toggle.addEventListener('click', () => setTheme(!html.classList.contains('dark')));
-
-  // ─── Carousels ────────────────────────────────────────────────────────────
-  function initCarousel(trackId, dotsContainerId) {
-    const track = document.getElementById(trackId);
-    if (!track) return;
-    const dotsEl = document.getElementById(dotsContainerId);
-    const dots = dotsEl ? Array.from(dotsEl.querySelectorAll('.carousel-dot')) : [];
-    let cur = 0;
-    function goTo(i) {
-      cur = i;
-      track.style.transform = `translateX(${-100 * i}%)`;
-      dots.forEach((d, j) => { d.classList.toggle('active', j === i); d.classList.toggle('inactive', j !== i); });
-    }
-    goTo(0);
-    dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.index)));
-    let sx = 0;
-    const wrap = track.closest('.carousel-card');
-    if (wrap) {
-      wrap.addEventListener('pointerdown', e => { sx = e.clientX; });
-      wrap.addEventListener('pointerup',   e => {
-        const dx = e.clientX - sx;
-        if (dx < -40 && cur < dots.length - 1) goTo(cur + 1);
-        if (dx >  40 && cur > 0)               goTo(cur - 1);
-      });
-    }
-  }
-  ['qatar','istanbul','cappadocia','dubai','singapore'].forEach(name =>
-    initCarousel(`track-${name}`, `dots-${name}`)
-  );
-
-  // ─── Folder filter + search ───────────────────────────────────────────────
-  const folderBtns = Array.from(document.querySelectorAll('.folder-btn'));
-  const feedCells  = Array.from(document.querySelectorAll('#feed-grid .feed-cell'));
-  let activeFilter = 'all';
-
-  function applyFilter() {
-    const q = document.getElementById('search-input').value.toLowerCase().trim();
-    feedCells.forEach(cell => {
-      const type  = cell.dataset.type  || '';
-      const title = (cell.dataset.title || '').toLowerCase();
-      const matchFilter = activeFilter === 'all' ||
-        type === activeFilter ||
-        (activeFilter === 'gallery' && type === 'trips');
-      const matchSearch = !q || title.includes(q);
-      cell.classList.toggle('hidden', !matchFilter || !matchSearch);
-    });
-  }
-
-  folderBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const shouldReset = btn.classList.contains('active');
-      folderBtns.forEach(b => b.classList.remove('active'));
-      if (shouldReset) {
-        activeFilter = 'all';
-      } else {
-        btn.classList.add('active');
-        activeFilter = btn.dataset.filter;
-      }
-      applyFilter();
-    });
-  });
-
-  document.getElementById('search-input').addEventListener('input', applyFilter);
-
-  // Init: show everything until a folder is selected.
-  applyFilter();
+  const saved = localStorage.getItem("theme");
+  setTheme(saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches);
+  toggle.addEventListener("click", () => setTheme(!html.classList.contains("dark")));
 </script>
 
 </body>
