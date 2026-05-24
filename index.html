@@ -100,6 +100,7 @@
     a { text-decoration: none; color: inherit; }
     button { cursor: pointer; background: none; border: none; font-family: inherit; }
     img { display: block; max-width: 100%; }
+    html, body { overflow-x: hidden; }
 
     /* ─── Layout Wrapper ─────────────────────────────────────────────────── */
     .site-wrapper {
@@ -758,7 +759,7 @@
     /* ─── Mobile nav (hidden on sm+) ─────────────────────────────────────── */
     @media (max-width: 639px) {
       .nav-left, .nav-right { display: none; }
-      nav { grid-template-columns: auto 1fr auto; }
+      nav { grid-template-columns: 1fr auto 1fr; }
       .nav-link.gift-nav.nav-mobile-gift { display: inline-flex; justify-self: start; }
       .nav-hamburger { display: inline-flex; justify-self: end; }
       .nav-logo { justify-self: center; }
@@ -945,7 +946,7 @@
               </div>
 
               <!-- 3. Erasmus University Rotterdam — tall card -->
-              <div class="grid-cell sm-row-span-2 aspect-square sm-aspect-1-2" style="grid-row: span 2;">
+              <div class="grid-cell sm-row-span-2 aspect-square sm-aspect-1-2">
                 <a class="card writing-card" href="#" style="text-decoration:none; display:flex; height:100%;">
                   <div class="writing-card-header">
                     <p class="card-label">Netherlands</p>
@@ -963,7 +964,7 @@
               </div>
 
               <!-- 4. Copenhagen Business School — tall card -->
-              <div class="grid-cell sm-row-span-2 aspect-square sm-aspect-1-2" style="grid-row: span 2;">
+              <div class="grid-cell sm-row-span-2 aspect-square sm-aspect-1-2">
                 <a class="card writing-card" href="#" style="text-decoration:none; display:flex; height:100%;">
                   <div class="writing-card-header">
                     <p class="card-label">Denmark</p>
@@ -981,7 +982,7 @@
               </div>
 
               <!-- 5. Photo — (single image) -->
-              <div class="grid-cell aspect-square sm-col-span-2 sm-row-span-2" style="grid-row: span 2;">
+              <div class="grid-cell aspect-square sm-col-span-2 sm-row-span-2">
                 <div class="photo-card">
                   <img src="assets/photos/Lagowski2026-1.jpg" alt="Braeden Lagowski" loading="lazy" />
                 </div>
