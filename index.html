@@ -51,28 +51,29 @@
       --background: #141414;
       --foreground: #fff;
       --header: #fff;
-      --body: #ddd;
-      --body-secondary: #adadad;
-      --card: #1c1c1c;
-      --card-foreground: #fafafa;
       --popover: #171717;
       --popover-foreground: #fafafa;
       --primary: #e5e5e5;
       --primary-foreground: #171717;
       --secondary: #262626;
       --secondary-foreground: #fafafa;
-      --muted: #262626;
-      --muted-foreground: #adadad;
       --accent: #262626;
       --accent-foreground: #fafafa;
       --destructive: #ff6568;
-      --border: rgba(255,255,255,0.1);
       --input: rgba(255,255,255,0.15);
       --ring: #737373;
       --sidebar: #171717;
       --primary-brand: #60a5fa;
       --secondary-brand: #bfdbfe;
       --footer-background: #111;
+      /* Keep cards looking like light theme even in dark mode */
+      --card: #f8f8f8;
+      --card-foreground: #0a0a0a;
+      --body: #575757;
+      --body-secondary: #707070;
+      --muted: #f5f5f5;
+      --muted-foreground: #707070;
+      --border: #e5e5e5;
     }
 
     /* ─── Reset & Base ──────────────────────────────────────────────────── */
@@ -121,12 +122,33 @@
 
     /* ─── Nav ────────────────────────────────────────────────────────────── */
     nav {
+      position: relative;
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
       padding: 1rem 2rem;
       background: transparent;
     }
+
+    /* mobile-only nav elements (hidden on desktop) */
+    .nav-hamburger { display: none; align-items: center; justify-content: center;
+      width: 2.5rem; height: 2.5rem; border-radius: 0.5rem; color: var(--body);
+      transition: color 0.15s, background-color 0.15s; }
+    .nav-hamburger:hover { color: var(--header); background: var(--muted); }
+    .nav-hamburger svg { pointer-events: none; }
+    .nav-link.gift-nav.nav-mobile-gift { display: none; }
+    .mobile-menu {
+      position: absolute; top: calc(100% - 0.25rem); right: 1rem; z-index: 50;
+      background: var(--background); border: 1px solid var(--border); border-radius: 12px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.18); padding: 0.5rem; min-width: 210px;
+      display: flex; flex-direction: column; gap: 0.1rem;
+    }
+    .mobile-menu[hidden] { display: none; }
+    .mobile-link { padding: 0.7rem 0.9rem; border-radius: 8px; color: var(--header);
+      font-weight: 500; font-size: 0.95rem; transition: background-color 0.15s; }
+    .mobile-link:hover, .mobile-link.active { background: var(--muted); }
+    .mobile-menu-socials { display: flex; gap: 0.25rem; padding: 0.4rem 0.4rem 0.2rem;
+      border-top: 1px solid var(--border); margin-top: 0.35rem; }
 
     .nav-left {
       display: flex;
@@ -734,7 +756,10 @@
     /* ─── Mobile nav (hidden on sm+) ─────────────────────────────────────── */
     @media (max-width: 639px) {
       .nav-left, .nav-right { display: none; }
-      nav { grid-template-columns: 1fr; justify-items: center; }
+      nav { grid-template-columns: auto 1fr auto; }
+      .nav-link.gift-nav.nav-mobile-gift { display: inline-flex; justify-self: start; }
+      .nav-hamburger { display: inline-flex; justify-self: end; }
+      .nav-logo { justify-self: center; }
     }
 
     /* ─── Responsive Grid ────────────────────────────────────────────────── */
@@ -805,7 +830,27 @@
         <a href="gift.html" class="nav-link gift-nav">Send a Gift</a>
       </div>
 
+      <a href="gift.html" class="nav-link gift-nav nav-mobile-gift">Send a Gift</a>
+
       <a class="nav-logo" href="index.html" aria-label="Home" style="font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; font-style: italic;">BL.</a>
+
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <div class="mobile-menu" id="mobile-menu" hidden>
+        <a href="index.html" class="mobile-link active">Home</a>
+        <a href="projects.html" class="mobile-link">Projects</a>
+        <a href="activities.html" class="mobile-link">Activities</a>
+        <a href="everything.html" class="mobile-link">Everything</a>
+        <div class="mobile-menu-socials">
+          <a href="https://www.facebook.com/braeden.lagowski" target="_blank" rel="noopener" class="icon-btn" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 2H15C13.6739 2 12.4021 2.52678 11.4645 3.46447C10.5268 4.40215 10 5.67392 10 7V10H7V14H10V22H14V14H17L18 10H14V7C14 6.73478 14.1054 6.48043 14.2929 6.29289C14.4804 6.10536 14.7348 6 15 6H18V2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/braedenlagowski/" target="_blank" rel="noopener" class="icon-btn" aria-label="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.6 7.26465C15.0322 7.26465 16.4057 7.83358 17.4184 8.84627C18.4311 9.85897 19 11.2325 19 12.6646V18.9646H15.4V12.6646C15.4 12.1873 15.2104 11.7294 14.8728 11.3919C14.5352 11.0543 14.0774 10.8646 13.6 10.8646C13.1226 10.8646 12.6648 11.0543 12.3272 11.3919C11.9896 11.7294 11.8 12.1873 11.8 12.6646V18.9646H8.2V12.6646C8.2 11.2325 8.76893 9.85897 9.78162 8.84627C10.7943 7.83358 12.1678 7.26465 13.6 7.26465ZM1 8.16465H4.6V18.9646H1V8.16465Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.8 5.46523C3.79411 5.46523 4.6 4.65935 4.6 3.66523C4.6 2.67112 3.79411 1.86523 2.8 1.86523C1.80589 1.86523 1 2.67112 1 3.66523C1 4.65935 1.80589 5.46523 2.8 5.46523Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
 
       <div class="nav-right">
         <!-- Facebook -->
@@ -1073,6 +1118,30 @@
 
   window.addEventListener('scroll', updateScrollLit, { passive: true });
   updateScrollLit();
+
+  // ─── Mobile menu ───────────────────────────────────────────────────────────
+  const navBurger = document.getElementById('nav-hamburger');
+  const navMenu = document.getElementById('mobile-menu');
+  if (navBurger && navMenu) {
+    navBurger.addEventListener('click', event => {
+      event.stopPropagation();
+      const willOpen = navMenu.hidden;
+      navMenu.hidden = !willOpen;
+      navBurger.setAttribute('aria-expanded', String(willOpen));
+    });
+    document.addEventListener('click', event => {
+      if (!navMenu.hidden && !navMenu.contains(event.target) && !navBurger.contains(event.target)) {
+        navMenu.hidden = true;
+        navBurger.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !navMenu.hidden) {
+        navMenu.hidden = true;
+        navBurger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
 </script>
 
 </body>
