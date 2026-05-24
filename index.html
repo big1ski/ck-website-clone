@@ -6,10 +6,7 @@
   <title>Braeden Lagowski</title>
   <meta name="description" content="Graduating Student" />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/fonts/fonts.css" />
 
   <link rel="stylesheet" href="assets/css/styles.css" />
   <!-- page-specific overrides -->
@@ -666,7 +663,11 @@
                       <h3 class="card-title">Frankfurt School</h3>
                     </div>
                     <div class="uni-logo-tile">
-                      <img src="assets/logos/fs-logo.png" alt="Frankfurt School logo" width="3840" height="1410" loading="lazy" />
+                      <picture>
+                        <source type="image/avif" srcset="assets/optimized/logos/fs-logo-400.avif 400w, assets/optimized/logos/fs-logo-800.avif 800w, assets/optimized/logos/fs-logo-1600.avif 1600w" sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, 1600px">
+                        <source type="image/webp" srcset="assets/optimized/logos/fs-logo-400.webp 400w, assets/optimized/logos/fs-logo-800.webp 800w, assets/optimized/logos/fs-logo-1600.webp 1600w" sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, 1600px">
+                        <img src="assets/optimized/logos/fs-logo-800.jpg" alt="Frankfurt School logo" width="3840" height="1410" loading="lazy" decoding="async">
+                      </picture>
                     </div>
                   </div>
                 </a>
@@ -700,7 +701,11 @@
                     </h3>
                   </div>
                   <div class="uni-logo-tile">
-                    <img src="assets/logos/eur-logo.png" alt="Erasmus University Rotterdam logo" width="761" height="719" loading="lazy" />
+                    <picture>
+                      <source type="image/avif" srcset="assets/optimized/logos/eur-logo-400.avif 400w, assets/optimized/logos/eur-logo-800.avif 800w" sizes="(max-width: 640px) 400px, 800px">
+                      <source type="image/webp" srcset="assets/optimized/logos/eur-logo-400.webp 400w, assets/optimized/logos/eur-logo-800.webp 800w" sizes="(max-width: 640px) 400px, 800px">
+                      <img src="assets/optimized/logos/eur-logo-800.jpg" alt="Erasmus University Rotterdam logo" width="761" height="719" loading="lazy" decoding="async">
+                    </picture>
                   </div>
                 </a>
               </div>
