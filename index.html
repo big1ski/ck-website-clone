@@ -133,8 +133,10 @@
     /* mobile-only nav elements (hidden on desktop) */
     .nav-hamburger { display: none; align-items: center; justify-content: center;
       width: 2.5rem; height: 2.5rem; border-radius: 0.5rem; color: var(--body);
-      transition: color 0.15s, background-color 0.15s; }
-    .nav-hamburger:hover { color: var(--header); background: var(--muted); }
+      transition: color 0.15s; -webkit-tap-highlight-color: transparent; }
+    .nav-hamburger:hover { color: var(--header); }
+    .nav-hamburger:focus { outline: none; }
+    .nav-hamburger:focus-visible { outline: 2px solid color-mix(in srgb, var(--primary-brand) 50%, transparent); outline-offset: 2px; }
     .nav-hamburger svg { pointer-events: none; }
     .nav-link.gift-nav.nav-mobile-gift { display: none; }
     .mobile-menu {
@@ -146,7 +148,7 @@
     .mobile-menu[hidden] { display: none; }
     .mobile-link { padding: 0.7rem 0.9rem; border-radius: 8px; color: var(--header);
       font-weight: 500; font-size: 0.95rem; transition: background-color 0.15s; }
-    .mobile-link:hover, .mobile-link.active { background: var(--muted); }
+    .mobile-link:active { background: var(--muted); }
     .mobile-menu-socials { display: flex; gap: 0.25rem; padding: 0.4rem 0.4rem 0.2rem;
       border-top: 1px solid var(--border); margin-top: 0.35rem; }
 
@@ -978,7 +980,7 @@
                 </a>
               </div>
 
-              <!-- 5. Photo — combined 2x2 feature card (single image) -->
+              <!-- 5. Photo — (single image) -->
               <div class="grid-cell aspect-square sm-col-span-2 sm-row-span-2" style="grid-row: span 2;">
                 <div class="photo-card">
                   <img src="assets/photos/Lagowski2026-1.jpg" alt="Braeden Lagowski" loading="lazy" />
@@ -1068,7 +1070,8 @@
   // Init
   const saved = localStorage.getItem('theme');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  setTheme(saved ? saved === 'dark' : prefersDark);
+  const isMobile = window.matchMedia('(max-width: 639px)').matches;
+  setTheme(isMobile ? false : (saved ? saved === 'dark' : prefersDark));
 
   toggle.addEventListener('click', () => {
     setTheme(!html.classList.contains('dark'));
