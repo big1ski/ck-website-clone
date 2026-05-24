@@ -90,7 +90,6 @@
       background: var(--secondary-brand);
     }
     .nav-logo { justify-self: center; color: var(--primary-brand); }
-    .nav-logo svg { display: block; }
     .nav-right { display: flex; align-items: center; gap: 0.5rem; justify-self: end; }
     .icon-btn {
       display: inline-flex; align-items: center; justify-content: center;
@@ -511,7 +510,7 @@
     }
     .card-modal-action:hover { color: var(--header); }
     .card-modal-description {
-      padding-top: 1rem;
+      padding-top: 1rem; white-space: pre-line;
       color: var(--body); font-size: clamp(1.2rem, 2vw, 1.45rem); line-height: 1.6;
     }
     .card-modal-related { margin-top: 3rem; padding-top: 2.75rem; border-top: 1px solid var(--border); }
@@ -601,7 +600,7 @@
           <!-- Feed Grid -->
           <div class="feed-grid page-section animate-in delay-3" id="feed-grid">
             <!-- Activity: Business@School -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="Business@School">
+            <div class="feed-cell aspect-sq" data-type="activities" data-title="Business@School" data-desc="I participated in BCG’s international Business@School program as part of a six-person team engaged in a structured three-phase business simulation. Throughout the program, I contributed to analyzing multinational and local companies, conducting market research, and developing effective business strategies.&#10;&#10;In the final phase, my team and I created an AI-powered screen time management app that promotes productivity and digital wellness. Working closely with a program mentor, we refined the product and pitch, culminating in a finalist presentation before expert judges.">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
                 <div class="hat-card">
                   <div class="hat-type">Activity</div>
@@ -613,7 +612,7 @@
             </div>
 
             <!-- Activity: Model United Nations -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="Model United Nations">
+            <div class="feed-cell aspect-sq" data-type="activities" data-title="Model United Nations" data-desc="The project culminated to a four-day conference that brought together around 450 students, aged 13 to 18, from 15 different countries to simulate the United Nations.&#10;As Deputy of Logistics for the 2025 MUNISS Conference, I oversaw student housing, coordinated hotel partnerships, and managed transportation for incoming delegates. I also led and organized a team of 26 supervisors, ensuring the seamless execution of one of Europe’s largest student-run Model United Nations events.&#10;&#10;Model United Nations is an authentic simulation of the U.N. General Assembly, U.N. Security Council, or other multilateral body, which catapults students into the world of diplomacy and negotiation. In Model U.N., students step into the shoes of ambassadors of U.N. member states, from Afghanistan to Zimbabwe to debate current issues on the Organization’s vast agenda. The students, better known as “delegates” in Model U.N., prepare draft resolutions, plot strategy, negotiate with supporters and adversaries, resolve conflicts, and navigate the U.N.’s rules of procedure-all in the interest of mobilizing “international cooperation” to resolve problems that affect almost every country on Earth.">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
                 <div class="hat-card">
                   <div class="hat-type">Activity</div>
@@ -625,7 +624,7 @@
             </div>
 
             <!-- Activity: EBS Symposium -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="EBS Symposium">
+            <div class="feed-cell aspect-sq" data-type="activities" data-title="EBS Symposium" data-desc="I just went to the EBS Symposium, which is one of Europe's biggest student-run business conferences. It was a massive two-day event packed with talks from top bosses at companies like McKinsey, Morgan Stanley, and REWE talking about AI and global markets. I also got to network directly with recruiters from major firms, do some hands-on business workshops, and wind down at a cool dinner cruise along the Rhine River!">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
                 <div class="hat-card">
                   <div class="hat-type">Activity</div>
@@ -637,7 +636,7 @@
             </div>
 
             <!-- Activity: Hyrox -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="Hyrox">
+            <div class="feed-cell aspect-sq" data-type="activities" data-title="Hyrox" data-desc="I ran Hyrox Men’s Doubles with my friend Enno, which is a functional fitness racing event where two-man teams complete an alternating course of a combined 8km run and 8 heavy workout stations. Both partners must run the full 8 kilometers side-by-side, but they can split the workload at the stations, including the 152kg Sled Push, 1,000m Rowing, and 100 Wall Balls.">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
                 <div class="hat-card">
                   <div class="hat-type">Activity</div>
@@ -649,7 +648,7 @@
             </div>
 
             <!-- Activity: Volleyball -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="Volleyball">
+            <div class="feed-cell aspect-sq" data-type="activities" data-title="Volleyball" data-desc="Played as a Libero on the boys varsity volleyball team.">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
                 <div class="hat-card">
                   <div class="hat-type">Activity</div>
@@ -660,76 +659,22 @@
               </a>
             </div>
 
-            <!-- Activity: NUS Women in Tech -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="NUS Women in Tech">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="hat-card">
-                  <div class="hat-type">Activity</div>
-                  <div class="hat-title">NUS Women in Tech</div>
-                  <div class="hat-role">Alum mentor</div>
-                  <div class="hat-image"><img src="Everything — Charisma Kausar_files/women-in-tech-career-human-library.jpg" alt="NUS Women in Tech" loading="lazy" /></div>
-                </div>
-              </a>
-            </div>
-
-            <!-- Activity: Women in STEM TCS F1 -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="Women in STEM TCS Formula 1">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="hat-card">
-                  <div class="hat-type">Activity</div>
-                  <div class="hat-title">Women in STEM — TCS Formula 1</div>
-                  <div class="hat-role">Panelist</div>
-                  <div class="hat-image"><img src="Everything — Charisma Kausar_files/women-in-stem-tcs-formula-1.jpg" alt="Women in STEM TCS Formula 1" loading="lazy" /></div>
-                </div>
-              </a>
-            </div>
-
-            <!-- Activity: Yangshun / Singapore climbing -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="Singapore Climbing Gym">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
+            <!-- Activity: LinkedIn post — clickable, opens in a new tab (no modal).
+                 Clone this block per post. Replace: href, avatar src, name, role,
+                 quote text, and date. -->
+            <div class="feed-cell aspect-sq" data-type="activities" data-title="MUNISS 2025">
+              <a class="card" href="https://www.linkedin.com/posts/ennomahr_after-a-year-leading-an-incredible-team-of-ugcPost-7324115490937688065-59RB/?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAErXaYABttxVUH7N4R_d5DSkCaY2QVlmzGw" target="_blank" rel="noopener" style="display:block;height:100%;text-decoration:none;">
                 <div class="social-card">
                   <div class="social-header">
-                    <div class="social-avatar"><img src="Everything — Charisma Kausar_files/avatar-yangshun-tay.jpg" alt="Yangshun Tay" /></div>
-                    <div><div class="social-name">Yangshun Tay</div><div class="social-handle">@yangshuntay</div></div>
+                    <div class="social-avatar"><img src="https://media.licdn.com/dms/image/v2/D4D03AQGUUiAalHP3ug/profile-displayphoto-scale_100_100/B4DZ4t5VwXHIAY-/0/1778886470663?e=1781136000&v=beta&t=WSIZ2B-SUSFFFCHiplOva6O08DHjDcQYBzFZnWzFLvk" alt="Enno Mahr" loading="lazy" /></div>
+                    <div><div class="social-name">Enno Mahr</div><div class="social-handle">Secretary General</div></div>
                   </div>
-                  <p class="social-quote">First time at the climbing gym — sending it on the beginner routes!</p>
-                  <div class="social-image"><img src="Everything — Charisma Kausar_files/singapore-climbing-gym.jpg" alt="Singapore Climbing Gym" loading="lazy" /></div>
+                  <p class="social-quote">After a year leading an incredible team of 20 students, I’m proud to share what we accomplished: MUNISS – Germany’s largest student-run Model United Nations conference...</p>
                   <div class="social-footer">
-                    <span class="social-date">Nov 2024</span>
-                    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--muted-foreground)"><path d="M11.1815 8.59491L5.95039 1.27491C5.88973 1.18987 5.80956 1.12054 5.71658 1.07272C5.6236 1.02489 5.52051 0.99996 5.41591 1H2.65497C2.53463 1.00015 2.41665 1.03335 2.31395 1.09596C2.21126 1.15857 2.1278 1.24818 2.07272 1.35497C2.01764 1.46176 1.99307 1.58162 2.00168 1.70142C2.0103 1.82122 2.05178 1.93634 2.12158 2.03418L8.81845 11.4051M11.1815 8.59491L17.8784 17.9658C17.9482 18.0637 17.9897 18.1788 17.9983 18.2986C18.0069 18.4184 17.9824 18.5382 17.9273 18.645C17.8722 18.7518 17.7887 18.8414 17.686 18.904C17.5834 18.9666 17.4654 18.9998 17.345 19H14.5841C14.4795 19 14.3764 18.9751 14.2834 18.9273C14.1904 18.8795 14.1103 18.8101 14.0496 18.7251L8.81845 11.4051M11.1815 8.59491L17.5669 1M8.81845 11.4051L2.43308 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color:var(--muted-foreground)" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg>
+                    <span class="social-date">Apr 2025</span>
                   </div>
                   <svg class="arrow-up-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-                </div>
-              </a>
-            </div>
-
-            <!-- Activity: Yuen Jien / Perth yacht -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="Perth Yacht">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="social-card">
-                  <div class="social-header">
-                    <div class="social-avatar"><img src="Everything — Charisma Kausar_files/avatar-yuen-jien-soo.jpg" alt="Yuen Jien Soo" /></div>
-                    <div><div class="social-name">Yuen Jien Soo</div><div class="social-handle">@yuenjiensoo</div></div>
-                  </div>
-                  <p class="social-quote">First time sailing solo in Perth. What a feeling of freedom on the water!</p>
-                  <div class="social-image"><img src="Everything — Charisma Kausar_files/perth-yacht-solo.jpg" alt="Perth Yacht Solo" loading="lazy" /></div>
-                  <div class="social-footer">
-                    <span class="social-date">Aug 2024</span>
-                    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--muted-foreground)"><path d="M11.1815 8.59491L5.95039 1.27491C5.88973 1.18987 5.80956 1.12054 5.71658 1.07272C5.6236 1.02489 5.52051 0.99996 5.41591 1H2.65497C2.53463 1.00015 2.41665 1.03335 2.31395 1.09596C2.21126 1.15857 2.1278 1.24818 2.07272 1.35497C2.01764 1.46176 1.99307 1.58162 2.00168 1.70142C2.0103 1.82122 2.05178 1.93634 2.12158 2.03418L8.81845 11.4051M11.1815 8.59491L17.8784 17.9658C17.9482 18.0637 17.9897 18.1788 17.9983 18.2986C18.0069 18.4184 17.9824 18.5382 17.9273 18.645C17.8722 18.7518 17.7887 18.8414 17.686 18.904C17.5834 18.9666 17.4654 18.9998 17.345 19H14.5841C14.4795 19 14.3764 18.9751 14.2834 18.9273C14.1904 18.8795 14.1103 18.8101 14.0496 18.7251L8.81845 11.4051M11.1815 8.59491L17.5669 1M8.81845 11.4051L2.43308 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </div>
-                  <svg class="arrow-up-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-                </div>
-              </a>
-            </div>
-
-            <!-- Activity: FIFA World Cup 2022 -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="FIFA World Cup 2022">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="hat-card">
-                  <div class="hat-type">Experience</div>
-                  <div class="hat-title">FIFA World Cup 2022</div>
-                  <div class="hat-role">Portugal vs Switzerland, Lusail</div>
-                  <div class="hat-image"><img src="Everything — Charisma Kausar_files/fifa-world-cup-2022-portugal-vs-switzerland-goal.jpg" alt="FIFA World Cup 2022" loading="lazy" /></div>
                 </div>
               </a>
             </div>
@@ -843,6 +788,10 @@
       cell.dataset.title || "";
   }
 
+  function descFrom(cell) {
+    return cell.dataset.desc ? cell.dataset.desc.trim() : "";
+  }
+
   function yearFrom(cell) {
     return textFrom(cell, [".social-date"]);
   }
@@ -890,7 +839,7 @@
     setText(modalTitle, title);
     setText(modalSubtitle, subtitle);
     setText(modalYear, yearFrom(cell));
-    setText(modalBody, subtitle ? subtitle : `A closer look at ${title}.`);
+    setText(modalBody, descFrom(cell) || (subtitle ? subtitle : `A closer look at ${title}.`));
 
     modalMedia.innerHTML = "";
     modalMedia.style.display = img ? "" : "none";
@@ -936,13 +885,15 @@
     cell.addEventListener("click", event => {
       if (event.target.closest(".carousel-dot")) return;
       const anchor = event.target.closest("a");
-      if (anchor && anchor.getAttribute("href") === "#") event.preventDefault();
+      if (anchor && anchor.getAttribute("href") !== "#") return; // real URL → let browser navigate, no modal
+      if (anchor) event.preventDefault();                         // '#' → block nav, open modal
       if (!event.target.closest(".card, .carousel-card")) return;
       openCardModal(cell);
     });
 
     clickable.addEventListener("keydown", event => {
       if (event.key !== "Enter" && event.key !== " ") return;
+      if (clickable.tagName === "A" && clickable.getAttribute("href") !== "#") return; // real link → native Enter nav
       event.preventDefault();
       openCardModal(cell);
     });

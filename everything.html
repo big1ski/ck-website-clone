@@ -90,7 +90,6 @@
       background: var(--secondary-brand);
     }
     .nav-logo { justify-self: center; color: var(--primary-brand); }
-    .nav-logo svg { display: block; }
     .nav-right { display: flex; align-items: center; gap: 0.5rem; justify-self: end; }
     .icon-btn {
       display: inline-flex; align-items: center; justify-content: center;
@@ -452,9 +451,22 @@
     /* aspect helpers */
     .aspect-sq  { aspect-ratio: 1/1; }
     .aspect-2-1 { aspect-ratio: 2/1; }
+    .aspect-1-2 { aspect-ratio: 1/2; }
+    @media (min-width: 1024px) { .feed-cell.tall { grid-row: span 2; } }
 
-    .card,
-    .carousel-card { cursor: pointer; }
+    .card { cursor: pointer; }
+
+    /* ─── GALLERY CARD (display-only photos) ──────────────────────────────── */
+    .gallery-card {
+      position: relative; width: 100%; height: 100%;
+      border-radius: 12px; overflow: hidden; background-color: #9f9f9f;
+    }
+    .gallery-card img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .gallery-card:hover img { transform: scale(1.04); }
+    @media (prefers-reduced-motion: reduce) { .gallery-card img { transition: none; } }
 
     /* ─── CARD MODAL ─────────────────────────────────────────────────────── */
     .card-modal-backdrop[hidden] { display: none; }
@@ -511,7 +523,7 @@
     }
     .card-modal-action:hover { color: var(--header); }
     .card-modal-description {
-      padding-top: 1rem;
+      padding-top: 1rem; white-space: pre-line;
       color: var(--body); font-size: clamp(1.2rem, 2vw, 1.45rem); line-height: 1.6;
     }
     .card-modal-related { margin-top: 3rem; padding-top: 2.75rem; border-top: 1px solid var(--border); }
@@ -734,7 +746,7 @@
           <div class="feed-grid page-section animate-in delay-3" id="feed-grid">
 
             <!-- Activity: Business@School -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="Business@School">
+            <div class="feed-cell aspect-sq" data-type="activities" data-title="Business@School" data-desc="I participated in BCG’s international Business@School program as part of a six-person team engaged in a structured three-phase business simulation. Throughout the program, I contributed to analyzing multinational and local companies, conducting market research, and developing effective business strategies.&#10;&#10;In the final phase, my team and I created an AI-powered screen time management app that promotes productivity and digital wellness. Working closely with a program mentor, we refined the product and pitch, culminating in a finalist presentation before expert judges.">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
                 <div class="hat-card">
                   <div class="hat-type">Activity</div>
@@ -746,7 +758,7 @@
             </div>
 
             <!-- Activity: Model United Nations -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="Model United Nations">
+            <div class="feed-cell aspect-sq" data-type="activities" data-title="Model United Nations" data-desc="The project culminated to a four-day conference that brought together around 450 students, aged 13 to 18, from 15 different countries to simulate the United Nations.&#10;As Deputy of Logistics for the 2025 MUNISS Conference, I oversaw student housing, coordinated hotel partnerships, and managed transportation for incoming delegates. I also led and organized a team of 26 supervisors, ensuring the seamless execution of one of Europe’s largest student-run Model United Nations events.&#10;&#10;Model United Nations is an authentic simulation of the U.N. General Assembly, U.N. Security Council, or other multilateral body, which catapults students into the world of diplomacy and negotiation. In Model U.N., students step into the shoes of ambassadors of U.N. member states, from Afghanistan to Zimbabwe to debate current issues on the Organization’s vast agenda. The students, better known as “delegates” in Model U.N., prepare draft resolutions, plot strategy, negotiate with supporters and adversaries, resolve conflicts, and navigate the U.N.’s rules of procedure-all in the interest of mobilizing “international cooperation” to resolve problems that affect almost every country on Earth.">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
                 <div class="hat-card">
                   <div class="hat-type">Activity</div>
@@ -758,7 +770,7 @@
             </div>
 
             <!-- Activity: EBS Symposium -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="EBS Symposium">
+            <div class="feed-cell aspect-sq" data-type="activities" data-title="EBS Symposium" data-desc="I just went to the EBS Symposium, which is one of Europe's biggest student-run business conferences. It was a massive two-day event packed with talks from top bosses at companies like McKinsey, Morgan Stanley, and REWE talking about AI and global markets. I also got to network directly with recruiters from major firms, do some hands-on business workshops, and wind down at a cool dinner cruise along the Rhine River!">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
                 <div class="hat-card">
                   <div class="hat-type">Activity</div>
@@ -770,7 +782,7 @@
             </div>
 
             <!-- Activity: Hyrox -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="Hyrox">
+            <div class="feed-cell aspect-sq" data-type="activities" data-title="Hyrox" data-desc="I ran Hyrox Men’s Doubles with my friend Enno, which is a functional fitness racing event where two-man teams complete an alternating course of a combined 8km run and 8 heavy workout stations. Both partners must run the full 8 kilometers side-by-side, but they can split the workload at the stations, including the 152kg Sled Push, 1,000m Rowing, and 100 Wall Balls.">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
                 <div class="hat-card">
                   <div class="hat-type">Activity</div>
@@ -782,25 +794,13 @@
             </div>
 
             <!-- Activity: Volleyball -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="Volleyball">
+            <div class="feed-cell aspect-sq" data-type="activities" data-title="Volleyball" data-desc="Played as a Libero on the boys varsity volleyball team.">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
                 <div class="hat-card">
                   <div class="hat-type">Activity</div>
                   <div class="hat-title">Volleyball</div>
                   <div class="hat-role">Varsity Player • Libero</div>
                   <div class="hat-image"><img src="Everything — Charisma Kausar_files/volleyball-varisity-2024.JPG" alt="Volleyball" loading="lazy" /></div>
-                </div>
-              </a>
-            </div>
-
-            <!-- Activity: NUS Women in Tech -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="NUS Women in Tech">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="hat-card">
-                  <div class="hat-type">Activity</div>
-                  <div class="hat-title">NUS Women in Tech</div>
-                  <div class="hat-role">Alum mentor</div>
-                  <div class="hat-image"><img src="Everything — Charisma Kausar_files/women-in-tech-career-human-library.jpg" alt="NUS Women in Tech" loading="lazy" /></div>
                 </div>
               </a>
             </div>
@@ -820,7 +820,7 @@
               </a>
             </div>
 
-            <!-- Featured: Screenshot to Design (Mobbin) — 2 col -->
+            <!-- Project (Coming Soon) — temporarily commented out
             <div class="feed-cell span-2 aspect-2-1" data-type="projects" data-title="Screenshot to Design Mobbin">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
                 <div class="featured-card">
@@ -837,27 +837,7 @@
                 </div>
               </a>
             </div>
-
-            <!-- Photo carousel: Qatar cave -->
-            <div class="feed-cell span-2 aspect-2-1" data-type="trips" data-title="Qatar Photos">
-              <div class="carousel-card" id="carousel-qatar">
-                <div class="carousel-track-wrapper">
-                  <div class="carousel-track" id="track-qatar">
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/qatar-misfir-cave.jpg" alt="Qatar Misfir Cave" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/brouq-zekreet-rock-formations.jpg" alt="Brouq Zekreet Rock Formations" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/doha-corniche-dinner-in-the-sky.jpg" alt="Doha Corniche Dinner in the Sky" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/qatar-national-day-horse-parade.jpg" alt="Qatar National Day Horse Parade" loading="lazy" /></div>
-                  </div>
-                  <div class="carousel-dots" id="dots-qatar">
-                    <button class="carousel-dot active" data-index="0"></button>
-                    <button class="carousel-dot inactive" data-index="1"></button>
-                    <button class="carousel-dot inactive" data-index="2"></button>
-                    <button class="carousel-dot inactive" data-index="3"></button>
-                  </div>
-                </div>
-                <div class="carousel-tooltip" id="tooltip-qatar">Qatar — 2024</div>
-              </div>
-            </div>
+            -->
 
             <!-- Book: Red Rising -->
             <div class="feed-cell aspect-sq" data-type="reading" data-title="Red Rising">
@@ -874,19 +854,7 @@
               </a>
             </div>
 
-            <!-- Activity: Women in STEM TCS F1 -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="Women in STEM TCS Formula 1">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="hat-card">
-                  <div class="hat-type">Activity</div>
-                  <div class="hat-title">Women in STEM — TCS Formula 1</div>
-                  <div class="hat-role">Panelist</div>
-                  <div class="hat-image"><img src="Everything — Charisma Kausar_files/women-in-stem-tcs-formula-1.jpg" alt="Women in STEM TCS Formula 1" loading="lazy" /></div>
-                </div>
-              </a>
-            </div>
-
-            <!-- Project: Mobbin Enterprise -->
+            <!-- Project (Coming Soon) — temporarily commented out
             <div class="feed-cell aspect-sq" data-type="projects" data-title="Mobbin Enterprise">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
                 <div class="card-inner project-card">
@@ -898,25 +866,7 @@
                 </div>
               </a>
             </div>
-
-            <!-- Istanbul carousel -->
-            <div class="feed-cell span-2 aspect-2-1" data-type="trips" data-title="Istanbul Photos">
-              <div class="carousel-card" id="carousel-istanbul">
-                <div class="carousel-track-wrapper">
-                  <div class="carousel-track" id="track-istanbul">
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/istanbul-blue-mosque.jpg" alt="Istanbul Blue Mosque" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/istanbul-bosphorus-ortakoy-mosque.jpg" alt="Istanbul Bosphorus" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/istanbul-istiklal-street.jpg" alt="Istanbul Istiklal Street" loading="lazy" /></div>
-                  </div>
-                  <div class="carousel-dots" id="dots-istanbul">
-                    <button class="carousel-dot active" data-index="0"></button>
-                    <button class="carousel-dot inactive" data-index="1"></button>
-                    <button class="carousel-dot inactive" data-index="2"></button>
-                  </div>
-                </div>
-                <div class="carousel-tooltip" id="tooltip-istanbul">Istanbul, Turkey</div>
-              </div>
-            </div>
+            -->
 
             <!-- Book: The Almanack of Naval Ravikant -->
             <div class="feed-cell aspect-sq" data-type="reading" data-title="The Almanack of Naval Ravikant">
@@ -933,7 +883,7 @@
               </a>
             </div>
 
-            <!-- Project: Artisan -->
+            <!-- Projects (Coming Soon) — temporarily commented out
             <div class="feed-cell aspect-sq" data-type="projects" data-title="Artisan">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
                 <div class="card-inner project-card">
@@ -946,26 +896,6 @@
               </a>
             </div>
 
-            <!-- Activity: Yangshun / Singapore climbing -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="Singapore Climbing Gym">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="social-card">
-                  <div class="social-header">
-                    <div class="social-avatar"><img src="Everything — Charisma Kausar_files/avatar-yangshun-tay.jpg" alt="Yangshun Tay" /></div>
-                    <div><div class="social-name">Yangshun Tay</div><div class="social-handle">@yangshuntay</div></div>
-                  </div>
-                  <p class="social-quote">First time at the climbing gym — sending it on the beginner routes!</p>
-                  <div class="social-image"><img src="Everything — Charisma Kausar_files/singapore-climbing-gym.jpg" alt="Singapore Climbing Gym" loading="lazy" /></div>
-                  <div class="social-footer">
-                    <span class="social-date">Nov 2024</span>
-                    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--muted-foreground)"><path d="M11.1815 8.59491L5.95039 1.27491C5.88973 1.18987 5.80956 1.12054 5.71658 1.07272C5.6236 1.02489 5.52051 0.99996 5.41591 1H2.65497C2.53463 1.00015 2.41665 1.03335 2.31395 1.09596C2.21126 1.15857 2.1278 1.24818 2.07272 1.35497C2.01764 1.46176 1.99307 1.58162 2.00168 1.70142C2.0103 1.82122 2.05178 1.93634 2.12158 2.03418L8.81845 11.4051M11.1815 8.59491L17.8784 17.9658C17.9482 18.0637 17.9897 18.1788 17.9983 18.2986C18.0069 18.4184 17.9824 18.5382 17.9273 18.645C17.8722 18.7518 17.7887 18.8414 17.686 18.904C17.5834 18.9666 17.4654 18.9998 17.345 19H14.5841C14.4795 19 14.3764 18.9751 14.2834 18.9273C14.1904 18.8795 14.1103 18.8101 14.0496 18.7251L8.81845 11.4051M11.1815 8.59491L17.5669 1M8.81845 11.4051L2.43308 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </div>
-                  <svg class="arrow-up-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-                </div>
-              </a>
-            </div>
-
-            <!-- Project: FolioGrid -->
             <div class="feed-cell aspect-sq" data-type="projects" data-title="FolioGrid">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
                 <div class="card-inner project-card">
@@ -977,27 +907,7 @@
                 </div>
               </a>
             </div>
-
-            <!-- Cappadocia carousel -->
-            <div class="feed-cell span-2 aspect-2-1" data-type="trips" data-title="Cappadocia Photos">
-              <div class="carousel-card" id="carousel-cappadocia">
-                <div class="carousel-track-wrapper">
-                  <div class="carousel-track" id="track-cappadocia">
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/cappadocia-soganli-valley-hot-air-balloons.jpg" alt="Cappadocia Hot Air Balloons" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/cappadocia-love-valley.jpg" alt="Cappadocia Love Valley" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/pamukkale-travertines.jpg" alt="Pamukkale Travertines" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/pamukkale-hierapolis-ancient-theater.jpg" alt="Pamukkale Hierapolis" loading="lazy" /></div>
-                  </div>
-                  <div class="carousel-dots" id="dots-cappadocia">
-                    <button class="carousel-dot active" data-index="0"></button>
-                    <button class="carousel-dot inactive" data-index="1"></button>
-                    <button class="carousel-dot inactive" data-index="2"></button>
-                    <button class="carousel-dot inactive" data-index="3"></button>
-                  </div>
-                </div>
-                <div class="carousel-tooltip" id="tooltip-cappadocia">Cappadocia, Turkey</div>
-              </div>
-            </div>
+            -->
 
             <!-- Book: Zero to One -->
             <div class="feed-cell aspect-sq" data-type="reading" data-title="Zero to One">
@@ -1014,59 +924,25 @@
               </a>
             </div>
 
-            <!-- Activity: Yuen Jien / Perth yacht -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="Perth Yacht">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
+            <!-- Activity: LinkedIn post (Enno Mahr / MUNISS) — clickable, opens in a new tab (no modal). -->
+            <div class="feed-cell aspect-sq" data-type="activities" data-title="MUNISS 2025">
+              <a class="card" href="https://www.linkedin.com/posts/ennomahr_after-a-year-leading-an-incredible-team-of-ugcPost-7324115490937688065-59RB/?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAErXaYABttxVUH7N4R_d5DSkCaY2QVlmzGw" target="_blank" rel="noopener" style="display:block;height:100%;text-decoration:none;">
                 <div class="social-card">
                   <div class="social-header">
-                    <div class="social-avatar"><img src="Everything — Charisma Kausar_files/avatar-yuen-jien-soo.jpg" alt="Yuen Jien Soo" /></div>
-                    <div><div class="social-name">Yuen Jien Soo</div><div class="social-handle">@yuenjiensoo</div></div>
+                    <div class="social-avatar"><img src="https://media.licdn.com/dms/image/v2/D4D03AQGUUiAalHP3ug/profile-displayphoto-scale_100_100/B4DZ4t5VwXHIAY-/0/1778886470663?e=1781136000&v=beta&t=WSIZ2B-SUSFFFCHiplOva6O08DHjDcQYBzFZnWzFLvk" alt="Enno Mahr" loading="lazy" /></div>
+                    <div><div class="social-name">Enno Mahr</div><div class="social-handle">Secretary General</div></div>
                   </div>
-                  <p class="social-quote">First time sailing solo in Perth. What a feeling of freedom on the water!</p>
-                  <div class="social-image"><img src="Everything — Charisma Kausar_files/perth-yacht-solo.jpg" alt="Perth Yacht Solo" loading="lazy" /></div>
+                  <p class="social-quote">After a year leading an incredible team of 20 students, I’m proud to share what we accomplished: MUNISS – Germany’s largest student-run Model United Nations conference...</p>
                   <div class="social-footer">
-                    <span class="social-date">Aug 2024</span>
-                    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--muted-foreground)"><path d="M11.1815 8.59491L5.95039 1.27491C5.88973 1.18987 5.80956 1.12054 5.71658 1.07272C5.6236 1.02489 5.52051 0.99996 5.41591 1H2.65497C2.53463 1.00015 2.41665 1.03335 2.31395 1.09596C2.21126 1.15857 2.1278 1.24818 2.07272 1.35497C2.01764 1.46176 1.99307 1.58162 2.00168 1.70142C2.0103 1.82122 2.05178 1.93634 2.12158 2.03418L8.81845 11.4051M11.1815 8.59491L17.8784 17.9658C17.9482 18.0637 17.9897 18.1788 17.9983 18.2986C18.0069 18.4184 17.9824 18.5382 17.9273 18.645C17.8722 18.7518 17.7887 18.8414 17.686 18.904C17.5834 18.9666 17.4654 18.9998 17.345 19H14.5841C14.4795 19 14.3764 18.9751 14.2834 18.9273C14.1904 18.8795 14.1103 18.8101 14.0496 18.7251L8.81845 11.4051M11.1815 8.59491L17.5669 1M8.81845 11.4051L2.43308 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color:var(--muted-foreground)" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg>
+                    <span class="social-date">Apr 2025</span>
                   </div>
                   <svg class="arrow-up-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
                 </div>
               </a>
             </div>
 
-            <!-- Dubai carousel -->
-            <div class="feed-cell span-2 aspect-2-1" data-type="trips" data-title="Dubai Photos">
-              <div class="carousel-card" id="carousel-dubai">
-                <div class="carousel-track-wrapper">
-                  <div class="carousel-track" id="track-dubai">
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/dubai-burj-khalifa.jpg" alt="Dubai Burj Khalifa" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/dubai-creek-abra-boat-ride.jpg" alt="Dubai Creek" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/dubai-desert-dallah-coffee-pot-sculpture.jpg" alt="Dubai Desert" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/dubai-desert-sand-team.jpg" alt="Dubai Desert Team" loading="lazy" /></div>
-                  </div>
-                  <div class="carousel-dots" id="dots-dubai">
-                    <button class="carousel-dot active" data-index="0"></button>
-                    <button class="carousel-dot inactive" data-index="1"></button>
-                    <button class="carousel-dot inactive" data-index="2"></button>
-                    <button class="carousel-dot inactive" data-index="3"></button>
-                  </div>
-                </div>
-                <div class="carousel-tooltip" id="tooltip-dubai">Dubai, UAE</div>
-              </div>
-            </div>
-
-            <!-- Activity: FIFA World Cup 2022 -->
-            <div class="feed-cell aspect-sq" data-type="activities" data-title="FIFA World Cup 2022">
-              <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
-                <div class="hat-card">
-                  <div class="hat-type">Experience</div>
-                  <div class="hat-title">FIFA World Cup 2022</div>
-                  <div class="hat-role">Portugal vs Switzerland, Lusail</div>
-                  <div class="hat-image"><img src="Everything — Charisma Kausar_files/fifa-world-cup-2022-portugal-vs-switzerland-goal.jpg" alt="FIFA World Cup 2022" loading="lazy" /></div>
-                </div>
-              </a>
-            </div>
-
-            <!-- Project: Mobbin Competitor Research -->
+            <!-- Project (Coming Soon) — temporarily commented out
             <div class="feed-cell aspect-sq" data-type="projects" data-title="Mobbin Competitor Research">
               <a class="card" href="#" style="display:block;height:100%;text-decoration:none;">
                 <div class="card-inner project-card">
@@ -1078,26 +954,319 @@
                 </div>
               </a>
             </div>
+            -->
 
-            <!-- Singapore carousel -->
-            <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Singapore Photos">
-              <div class="carousel-card" id="carousel-singapore">
-                <div class="carousel-track-wrapper">
-                  <div class="carousel-track" id="track-singapore">
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/singapore-bird-paradise-flamingos.jpg" alt="Singapore Bird Paradise" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/singapore-botanic-gardens-symphony-stage.jpg" alt="Singapore Botanic Gardens" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/singapore-museum-of-ice-cream-sprinkle-pool.jpg" alt="Museum of Ice Cream" loading="lazy" /></div>
-                    <div class="carousel-slide"><img src="Everything — Charisma Kausar_files/singapore-river-cruise.jpg" alt="Singapore River Cruise" loading="lazy" /></div>
-                  </div>
-                  <div class="carousel-dots" id="dots-singapore">
-                    <button class="carousel-dot active" data-index="0"></button>
-                    <button class="carousel-dot inactive" data-index="1"></button>
-                    <button class="carousel-dot inactive" data-index="2"></button>
-                    <button class="carousel-dot inactive" data-index="3"></button>
-                  </div>
-                </div>
-                <div class="carousel-tooltip" id="tooltip-singapore">Singapore</div>
-              </div>
+            <!-- Gallery photo cards (display-only) -->
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/3c5dcf32-c9fe-4bcf-b206-4f40a06ffe29.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/16161_20251031_141751_582006290_socialmedia copy 2.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/c05f4110-9176-4f53-916f-9174dc168e14.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/FullSizeRender 2.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/FullSizeRender 3.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/FullSizeRender 4.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/FullSizeRender.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_0018.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_0141.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_0707.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_0716.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_1033.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_1279.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_1299.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_1549.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_1874.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_2055.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_2057.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_2059.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_2133.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_2159.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_2177.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_2541.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_2563.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_2653.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_2878.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_2888.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_3156.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_3258 2.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_3430.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_3432.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_3471.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_3493.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_3577.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_3767.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_3944.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_3956.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_4405.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_4455.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_4690.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_4769.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_5133.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_5178.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_5204.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_5233.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_5335.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_5354.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_5414.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_5472.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_5500.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_5933.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_5985.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_6512.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_6702.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_7021.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_7287.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_7340.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_7355.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_7360.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_7727.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_7751.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_7821.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_7917.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_8048.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_8072.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_8554.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_8663.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_8759.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_8930.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_8994.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_9219.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_9415.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_9738.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_9842.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_9843.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_9905.JPG" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_9982.jpg" alt="Gallery photo" loading="lazy" /></div>
+            </div>
+
+            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
+              <div class="gallery-card"><img src="Everything — Charisma Kausar_files/Everything-Gallery/IMG_20250702_160837_953.JPG" alt="Gallery photo" loading="lazy" /></div>
             </div>
 
           </div><!-- /feed-grid -->
@@ -1180,7 +1349,7 @@
       });
     }
   }
-  ['qatar','istanbul','cappadocia','dubai','singapore'].forEach(name =>
+  [].forEach(name =>
     initCarousel(`track-${name}`, `dots-${name}`)
   );
 
@@ -1273,6 +1442,10 @@
       cell.dataset.title || '';
   }
 
+  function descFrom(cell) {
+    return cell.dataset.desc ? cell.dataset.desc.trim() : '';
+  }
+
   function yearFrom(cell) {
     return textFrom(cell, ['.social-date']);
   }
@@ -1320,7 +1493,7 @@
     setText(modalTitle, title);
     setText(modalSubtitle, subtitle);
     setText(modalYear, yearFrom(cell));
-    setText(modalBody, subtitle ? subtitle : `A closer look at ${title}.`);
+    setText(modalBody, descFrom(cell) || (subtitle ? subtitle : `A closer look at ${title}.`));
 
     modalMedia.innerHTML = '';
     modalMedia.style.display = img ? '' : 'none';
@@ -1357,18 +1530,19 @@
   }
 
   feedCells.forEach(cell => {
-    const clickable = cell.querySelector('.card, .carousel-card');
+    const carousel = cell.querySelector('.carousel-card');
+    const clickable = cell.querySelector('.card');
     if (!clickable) return;
-    if (clickable.tagName !== 'A') clickable.tabIndex = 0;
     clickable.setAttribute('role', 'button');
     clickable.setAttribute('aria-label', `Open ${titleFrom(cell)}`);
 
     cell.addEventListener('click', event => {
       if (event.target.closest('.carousel-dot')) return;
+      if (carousel && event.target.closest('.carousel-card')) return;
       const anchor = event.target.closest('a');
       if (anchor && anchor.getAttribute('href') !== '#') return;
       if (anchor) event.preventDefault();
-      if (!event.target.closest('.card, .carousel-card')) return;
+      if (!event.target.closest('.card')) return;
       openCardModal(cell);
     });
 

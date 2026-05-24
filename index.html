@@ -167,8 +167,6 @@
       justify-self: center;
       color: var(--primary-brand);
     }
-    .nav-logo svg { display: block; }
-
     .nav-right {
       display: flex;
       align-items: center;
@@ -410,71 +408,19 @@
       position: relative;
     }
 
-    .university-meta {
-      margin-top: 0.75rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.375rem;
-      position: relative;
+    /* University logo tile (replaces initial-circle / blue box) */
+    .uni-logo-tile {
+      flex: 1; min-height: 0; margin-top: 0.85rem;
+      display: flex; align-items: center; justify-content: center;
+      background: #fff; border-radius: 10px;
+      padding: 1.25rem;
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary-brand) 10%, transparent);
     }
-
-    .university-pill {
-      border: 1px solid color-mix(in srgb, var(--primary-brand) 22%, transparent);
-      border-radius: 999px;
-      padding: 0.25rem 0.5rem;
-      color: var(--body);
-      font-size: 0.75rem;
-      line-height: 1;
-      background: color-mix(in srgb, var(--primary-brand) 8%, transparent);
+    .uni-logo-tile img {
+      max-width: 100%; max-height: 100%;
+      width: auto; height: auto; object-fit: contain;
     }
-
-    .university-mark {
-      position: absolute;
-      right: 1.25rem;
-      bottom: 1.25rem;
-      display: grid;
-      place-items: center;
-      width: clamp(5rem, 45%, 9rem);
-      aspect-ratio: 1;
-      border: 1px solid color-mix(in srgb, var(--primary-brand) 18%, transparent);
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--primary-brand) 22%, transparent), transparent 58%),
-        color-mix(in srgb, var(--primary-brand) 10%, var(--card));
-      color: var(--secondary-brand);
-      font-family: var(--font-geist-mono);
-      font-size: clamp(1.5rem, 5vw, 2.5rem);
-      font-weight: 700;
-      letter-spacing: 0;
-      opacity: 0.82;
-    }
-
-    .featured-card .university-mark {
-      width: clamp(8rem, 34%, 13rem);
-      right: 2rem;
-      bottom: 1.5rem;
-    }
-
-    .writing-card-note {
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      min-height: 0;
-      flex: 1;
-      border-radius: 0 0 8px 8px;
-      background:
-        linear-gradient(145deg, color-mix(in srgb, var(--primary-brand) 18%, transparent), transparent 55%),
-        color-mix(in srgb, var(--primary-brand) 8%, var(--card));
-    }
-
-    .writing-card-note .university-mark {
-      position: relative;
-      right: auto;
-      bottom: auto;
-      width: min(9rem, 62%);
-      margin: auto auto 1rem;
-    }
+    .featured-card .uni-logo-tile { margin: 0; }
 
     .card-img-wrapper {
       position: absolute;
@@ -650,16 +596,8 @@
       box-shadow: 0 0 12px rgba(0,0,0,0.05);
     }
 
-    /* Photo carousel card */
-    .carousel-card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      height: 100%;
-    }
-
-    .carousel-track-wrapper {
+    /* Single photo card (replaces the carousel) */
+    .photo-card {
       position: relative;
       width: 100%;
       height: 100%;
@@ -667,87 +605,12 @@
       border-radius: 12px;
       background-color: rgb(159,159,159);
     }
-
-    .carousel-track {
-      display: flex;
-      height: 100%;
-      width: 100%;
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
-    }
-
-    .carousel-slide {
-      position: relative;
-      flex-shrink: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .carousel-slide img {
+    .photo-card img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-
-    .photo-placeholder {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      padding: 2rem;
-      color: #1e3a8a;
-      background:
-        radial-gradient(circle at 30% 25%, rgba(255,255,255,0.42), transparent 35%),
-        linear-gradient(135deg, #bfdbfe, #3b82f6);
-      font-size: clamp(3rem, 13vw, 9rem);
-      font-weight: 700;
-      line-height: 0.95;
-      text-align: center;
-    }
-
-    .photo-placeholder.alt {
-      color: #fff;
-      background:
-        radial-gradient(circle at 70% 30%, rgba(255,255,255,0.32), transparent 38%),
-        linear-gradient(135deg, #3b82f6, #1d4ed8);
-    }
-
-    .carousel-dots {
-      position: absolute;
-      bottom: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 15px;
-    }
-
-    .carousel-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: background-color 0.15s, scale 0.15s;
-    }
-    .carousel-dot.active { background-color: rgba(255,255,255,1); }
-    .carousel-dot.inactive { background-color: rgba(255,255,255,0.5); }
-
-    .carousel-tooltip {
-      position: absolute;
-      z-index: 10;
-      padding: 0.375rem 0.75rem;
-      border-radius: 0.5rem;
-      background-color: rgba(0,0,0,0.7);
-      backdrop-filter: blur(8px);
-      color: white;
-      font-size: 0.875rem;
-      white-space: nowrap;
-      pointer-events: none;
-      transition: opacity 0.15s ease-in-out;
-      opacity: 0;
-      top: 0;
-      left: 0;
-      transform: translate(-50%, -120%);
     }
 
     /* Talk card */
@@ -924,7 +787,6 @@
       .animate-in { animation: none; }
       .scroll-word { transition: none; }
       .card-img-wrapper, .card:hover .card-img-wrapper { transition: none; }
-      .carousel-track { transition: none; }
       .writing-card-img-inner img, .card:hover .writing-card-img-inner img { transition: none; }
     }
   </style>
@@ -943,30 +805,15 @@
         <a href="gift.html" class="nav-link gift-nav">Send a Gift</a>
       </div>
 
-      <!-- Logo (handwritten CK signature SVG) -->
-      <a class="nav-logo" href="index.html" aria-label="Home">
-        <svg width="57" height="43" viewBox="0 0 57 43" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M31.9199 15.3658C37.9199 4.36426 23.8909 4.27533 16.4201 8.8661C8.1205 13.9662 0.715132 28.5981 11.0659 35.4985C17.0892 39.5141 28.7817 34.0757 32.4479 28.5764" stroke="var(--primary-brand)" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
-          <path d="M43.5446 8.92578C43.64 8.92578 41.8428 12.9841 41.7512 13.1897C38.8687 19.6543 35.8915 27.1383 31.8026 32.9361C30.3628 34.9776 34.4251 28.5001 35.721 26.3643C37.3401 23.6956 41.9337 17.4242 45.8145 18.7837C48.7404 19.8087 44.4074 22.6621 43.3771 23.1784C41.1046 24.3172 38.7441 24.7697 36.435 25.6906C36.0617 25.8395 37.3646 25.5211 37.9072 25.5715C40.9158 25.8509 40.8291 37.2601 46.4971 32.5461" stroke="var(--primary-brand)" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
-          <path d="M49.7563 29.1865C48.7065 29.1865 48.4661 30.8708 48.9576 31.5267C50.2001 33.1847 52.0902 30.8403 50.469 29.492" stroke="var(--primary-brand)" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
-        </svg>
-      </a>
+      <a class="nav-logo" href="index.html" aria-label="Home" style="font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; font-style: italic;">BL.</a>
 
       <div class="nav-right">
-        <!-- GitHub -->
-        <a href="#" target="_blank" rel="noopener" class="icon-btn" aria-label="GitHub">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7.10256 16.4318C2.74359 17.7159 2.74359 14.2917 1 13.8637M13.2051 19V15.6871C13.2378 15.2789 13.1817 14.8685 13.0404 14.4833C12.8991 14.0981 12.6759 13.7468 12.3856 13.4528C15.1231 13.1532 18 12.1345 18 7.46044C17.9998 6.26524 17.5316 5.11588 16.6923 4.25025C17.0897 3.20459 17.0616 2.04878 16.6138 1.02294C16.6138 1.02294 15.5851 0.723319 13.2051 2.28989C11.207 1.75813 9.10071 1.75813 7.10256 2.28989C4.72256 0.723319 3.69385 1.02294 3.69385 1.02294C3.24607 2.04878 3.21797 3.20459 3.61538 4.25025C2.76985 5.12231 2.30117 6.28205 2.30769 7.48612C2.30769 12.1259 5.18461 13.1446 7.92205 13.4785C7.63523 13.7695 7.41402 14.1166 7.27283 14.4971C7.13164 14.8776 7.07363 15.2831 7.10256 15.6871V19" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-          </svg>
-        </a>
-        <!-- X / Twitter -->
-        <a href="#" target="_blank" rel="noopener" class="icon-btn" aria-label="X">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11.1815 8.59491L5.95039 1.27491C5.88973 1.18987 5.80956 1.12054 5.71658 1.07272C5.6236 1.02489 5.52051 0.99996 5.41591 1H2.65497C2.53463 1.00015 2.41665 1.03335 2.31395 1.09596C2.21126 1.15857 2.1278 1.24818 2.07272 1.35497C2.01764 1.46176 1.99307 1.58162 2.00168 1.70142C2.0103 1.82122 2.05178 1.93634 2.12158 2.03418L8.81845 11.4051M11.1815 8.59491L17.8784 17.9658C17.9482 18.0637 17.9897 18.1788 17.9983 18.2986C18.0069 18.4184 17.9824 18.5382 17.9273 18.645C17.8722 18.7518 17.7887 18.8414 17.686 18.904C17.5834 18.9666 17.4654 18.9998 17.345 19H14.5841C14.4795 19 14.3764 18.9751 14.2834 18.9273C14.1904 18.8795 14.1103 18.8101 14.0496 18.7251L8.81845 11.4051M11.1815 8.59491L17.5669 1M8.81845 11.4051L2.43308 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/braeden.lagowski" target="_blank" rel="noopener" class="icon-btn" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 2H15C13.6739 2 12.4021 2.52678 11.4645 3.46447C10.5268 4.40215 10 5.67392 10 7V10H7V14H10V22H14V14H17L18 10H14V7C14 6.73478 14.1054 6.48043 14.2929 6.29289C14.4804 6.10536 14.7348 6 15 6H18V2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
         <!-- LinkedIn -->
-        <a href="#" target="_blank" rel="noopener" class="icon-btn" aria-label="LinkedIn">
+        <a href="https://www.linkedin.com/in/braedenlagowski/" target="_blank" rel="noopener" class="icon-btn" aria-label="LinkedIn">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M13.6 7.26465C15.0322 7.26465 16.4057 7.83358 17.4184 8.84627C18.4311 9.85897 19 11.2325 19 12.6646V18.9646H15.4V12.6646C15.4 12.1873 15.2104 11.7294 14.8728 11.3919C14.5352 11.0543 14.0774 10.8646 13.6 10.8646C13.1226 10.8646 12.6648 11.0543 12.3272 11.3919C11.9896 11.7294 11.8 12.1873 11.8 12.6646V18.9646H8.2V12.6646C8.2 11.2325 8.76893 9.85897 9.78162 8.84627C10.7943 7.83358 12.1678 7.26465 13.6 7.26465ZM1 8.16465H4.6V18.9646H1V8.16465Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M2.8 5.46523C3.79411 5.46523 4.6 4.65935 4.6 3.66523C4.6 2.67112 3.79411 1.86523 2.8 1.86523C1.80589 1.86523 1 2.67112 1 3.66523C1 4.65935 1.80589 5.46523 2.8 5.46523Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1027,13 +874,10 @@
                     <div class="featured-card-text">
                       <p class="card-label">Germany</p>
                       <h3 class="card-title">Frankfurt School</h3>
-                      <p class="card-desc">Finance and management application in Frankfurt.</p>
-                      <div class="university-meta">
-                        <span class="university-pill">Frankfurt</span>
-                        <span class="university-pill">Application list</span>
-                      </div>
                     </div>
-                    <div class="university-mark" aria-hidden="true">FS</div>
+                    <div class="uni-logo-tile">
+                      <img src="fs-logo.png" alt="Frankfurt School logo" loading="lazy" />
+                    </div>
                   </div>
                 </a>
               </div>
@@ -1045,13 +889,10 @@
                     <p class="card-label">Netherlands</p>
                     <div class="project-card-text">
                       <h3 class="card-title">Maastricht University</h3>
-                      <p class="card-desc">A cross-border option in the Netherlands with an international student community.</p>
-                      <div class="university-meta">
-                        <span class="university-pill">Maastricht</span>
-                        <span class="university-pill">Applied</span>
-                      </div>
                     </div>
-                    <div class="university-mark" aria-hidden="true">UM</div>
+                    <div class="uni-logo-tile">
+                      <img src="maastricht-logo.png" alt="Maastricht University logo" loading="lazy" />
+                    </div>
                   </div>
                 </a>
               </div>
@@ -1068,13 +909,8 @@
                       </svg>
                     </h3>
                   </div>
-                  <div class="writing-card-note">
-                    <div class="university-mark" aria-hidden="true">EUR</div>
-                    <p class="card-desc">Rotterdam-based application choice with a strong business and economics profile.</p>
-                    <div class="university-meta">
-                      <span class="university-pill">Rotterdam</span>
-                      <span class="university-pill">Applied</span>
-                    </div>
+                  <div class="uni-logo-tile">
+                    <img src="eur-logo.png" alt="Erasmus University Rotterdam logo" loading="lazy" />
                   </div>
                 </a>
               </div>
@@ -1091,35 +927,16 @@
                       </svg>
                     </h3>
                   </div>
-                  <div class="writing-card-note">
-                    <div class="university-mark" aria-hidden="true">CBS</div>
-                    <p class="card-desc">Business-focused application in Copenhagen.</p>
-                    <div class="university-meta">
-                      <span class="university-pill">Copenhagen</span>
-                      <span class="university-pill">Applied</span>
-                    </div>
+                  <div class="uni-logo-tile">
+                    <img src="cbs-logo.png" alt="Copenhagen Business School logo" loading="lazy" />
                   </div>
                 </a>
               </div>
 
-              <!-- 5. Photo Carousel — combined 2x2 feature card -->
+              <!-- 5. Photo — combined 2x2 feature card (single image) -->
               <div class="grid-cell aspect-square sm-col-span-2 sm-row-span-2" style="grid-row: span 2;">
-                <div class="carousel-card" id="carousel">
-                  <div class="carousel-track-wrapper">
-                    <div class="carousel-track" id="carousel-track">
-                      <div class="carousel-slide">
-                        <div class="photo-placeholder" role="img" aria-label="Photo 1">Photo 1</div>
-                      </div>
-                      <div class="carousel-slide">
-                        <div class="photo-placeholder alt" role="img" aria-label="Photo 2">Photo 2</div>
-                      </div>
-                    </div>
-                    <div class="carousel-dots">
-                      <button class="carousel-dot inactive" data-index="0" aria-label="Go to image 1"></button>
-                      <button class="carousel-dot active" data-index="1" aria-label="Go to image 2"></button>
-                    </div>
-                  </div>
-                  <div class="carousel-tooltip" id="carousel-tooltip">Your Company — Location, 2024</div>
+                <div class="photo-card">
+                  <img src="Lagowski2026-1.jpg" alt="Braeden Lagowski" loading="lazy" />
                 </div>
               </div>
 
@@ -1130,13 +947,10 @@
                     <div class="project-card-text">
                       <p class="card-label">Belgium</p>
                       <h3 class="card-title">KU Leuven</h3>
-                      <p class="card-desc">Applied to one of Europe's historic research universities in Leuven.</p>
-                      <div class="university-meta">
-                        <span class="university-pill">Leuven</span>
-                        <span class="university-pill">Applied</span>
-                      </div>
                     </div>
-                    <div class="university-mark" aria-hidden="true">KUL</div>
+                    <div class="uni-logo-tile">
+                      <img src="kul-logo.jpeg" alt="KU Leuven logo" loading="lazy" />
+                    </div>
                   </div>
                 </a>
               </div>
@@ -1243,46 +1057,6 @@
     ipaTimers.forEach(clearTimeout);
     ipaTimers = [];
     nameWords.forEach(hideTooltip);
-  });
-
-  // ─── Carousel ────────────────────────────────────────────────────────────
-  const track = document.getElementById('carousel-track');
-  const dots = document.querySelectorAll('.carousel-dot');
-  let currentSlide = 1; // start on second slide (matches original)
-
-  function goToSlide(idx) {
-    currentSlide = idx;
-    // Use negative translate: slide 0 = 0%, slide 1 = -100%
-    track.style.transform = `translateX(${-100 * idx}%)`;
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === idx);
-      dot.classList.toggle('inactive', i !== idx);
-    });
-  }
-
-  // Init
-  goToSlide(currentSlide);
-
-  dots.forEach((dot) => {
-    dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.index)));
-  });
-
-  // Touch/drag support
-  let startX = 0;
-  let isDragging = false;
-  const carouselEl = document.getElementById('carousel');
-
-  carouselEl.addEventListener('pointerdown', (e) => {
-    startX = e.clientX;
-    isDragging = true;
-  });
-
-  carouselEl.addEventListener('pointerup', (e) => {
-    if (!isDragging) return;
-    isDragging = false;
-    const diff = e.clientX - startX;
-    if (diff < -40 && currentSlide < dots.length - 1) goToSlide(currentSlide + 1);
-    if (diff > 40 && currentSlide > 0) goToSlide(currentSlide - 1);
   });
 
   // ─── Scroll-lit Text ──────────────────────────────────────────────────────
