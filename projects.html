@@ -440,6 +440,89 @@
     .aspect-sq  { aspect-ratio: 1/1; }
     .aspect-2-1 { aspect-ratio: 2/1; }
 
+    .card,
+    .carousel-card { cursor: pointer; }
+
+    /* ─── CARD MODAL ─────────────────────────────────────────────────────── */
+    .card-modal-backdrop[hidden] { display: none; }
+    .card-modal-backdrop {
+      position: fixed; inset: 0; z-index: 1000;
+      display: flex; justify-content: center; align-items: flex-start;
+      padding: 2rem; overflow: hidden;
+      background: rgba(0,0,0,0.55);
+    }
+    .card-modal {
+      position: relative; width: min(100%, 1280px);
+      max-height: calc(100vh - 4rem);
+      background: var(--background); color: var(--foreground);
+      border-radius: 20px; box-shadow: 0 30px 90px rgba(0,0,0,0.28);
+      overflow-y: auto; overscroll-behavior: none;
+    }
+    .card-modal-sticky { position: sticky; top: 0; z-index: 2; display: flex; justify-content: flex-end; padding: 1rem; }
+    .card-modal-close {
+      width: 2.25rem; height: 2.25rem; border-radius: 999px;
+      border: 1px solid var(--border); background: color-mix(in srgb, var(--background) 82%, transparent);
+      backdrop-filter: blur(8px);
+      color: var(--body); font-size: 1.4rem; line-height: 1;
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background-color 0.15s, color 0.15s;
+    }
+    .card-modal-close:hover { background: var(--card); color: var(--header); }
+    .card-modal-shell { width: min(100%, 900px); margin: -1rem auto 0; padding: 0 2.5rem 3rem; }
+    .card-modal-hero { display: grid; gap: 2rem; align-items: start; padding-bottom: 2rem; }
+    @media (min-width: 900px) { .card-modal-hero { grid-template-columns: minmax(0, 1fr) minmax(320px, 1.15fr); } }
+    .card-modal-kicker { color: var(--body-secondary); font-size: 1.05rem; font-weight: 600; }
+    .card-modal-title {
+      margin-top: 0.35rem; color: var(--primary-brand);
+      font-size: clamp(2.4rem, 5vw, 3.35rem); line-height: 1; font-weight: 700;
+    }
+    .card-modal-subtitle {
+      margin-top: 0.45rem; color: var(--secondary-brand);
+      font-size: 1.15rem; font-weight: 600;
+    }
+    .card-modal-year { margin-top: 0.35rem; color: var(--body-secondary); font-weight: 600; }
+    .card-modal-media {
+      border: 1px solid var(--border); border-radius: 0.5rem;
+      background: var(--card); overflow: hidden;
+      transition: box-shadow 0.15s;
+    }
+    .card-modal-media:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+    .card-modal-media-frame {
+      position: relative; width: 100%; aspect-ratio: 16/9;
+      overflow: hidden; background: var(--card); border-radius: 0.5rem 0.5rem 0 0;
+    }
+    .card-modal-media-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .card-modal-action {
+      display: block; padding: 0.65rem 1rem; text-align: center;
+      color: var(--body); font-weight: 600; text-decoration: none;
+    }
+    .card-modal-action:hover { color: var(--header); }
+    .card-modal-description {
+      padding-top: 1rem;
+      color: var(--body); font-size: clamp(1.2rem, 2vw, 1.45rem); line-height: 1.6;
+    }
+    .card-modal-related { margin-top: 3rem; padding-top: 2.75rem; border-top: 1px solid var(--border); }
+    .card-modal-related h2 { color: var(--header); font-size: 1.85rem; font-weight: 700; }
+    .card-modal-related-grid {
+      margin-top: 1.5rem; display: grid; gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+    .card-modal-related-card {
+      background: var(--card); border-radius: 12px; padding: 1rem;
+      min-height: 170px; overflow: hidden;
+    }
+    .card-modal-related-card p { color: var(--body-secondary); font-size: 0.8rem; font-weight: 600; }
+    .card-modal-related-card h3 { color: var(--card-foreground); font-size: 1.08rem; line-height: 1.2; margin-top: 0.25rem; }
+    .card-modal-related-card img {
+      width: 100%; aspect-ratio: 16/9; object-fit: cover; object-position: top;
+      border-radius: 0.5rem; margin-top: 0.75rem;
+    }
+    @media (max-width: 639px) {
+      .card-modal-backdrop { padding: 1rem; }
+      .card-modal { border-radius: 16px; max-height: calc(100vh - 2rem); }
+      .card-modal-shell { margin-top: -0.75rem; padding: 0 1.25rem 2rem; }
+    }
+
     /* ─── FOOTER ──────────────────────────────────────────────────────────── */
     footer {
       position: sticky; bottom: 0; display: flex; height: 300px; width: 100%;
@@ -584,6 +667,31 @@
   </div>
 </div>
 
+<div class="card-modal-backdrop" id="card-modal" hidden>
+  <article class="card-modal" role="dialog" aria-modal="true" aria-labelledby="card-modal-title">
+    <div class="card-modal-sticky">
+      <button class="card-modal-close" id="card-modal-close" type="button" aria-label="Close card">&times;</button>
+    </div>
+    <div class="card-modal-shell">
+      <div class="card-modal-hero">
+        <div>
+          <p class="card-modal-kicker" id="card-modal-kicker"></p>
+          <h2 class="card-modal-title" id="card-modal-title"></h2>
+          <p class="card-modal-subtitle" id="card-modal-subtitle"></p>
+          <p class="card-modal-year" id="card-modal-year"></p>
+        </div>
+        <div class="card-modal-media" id="card-modal-media"></div>
+      </div>
+      <a class="card-modal-action" id="card-modal-action" href="#" target="_blank" rel="noopener">Find out more ↗</a>
+      <p class="card-modal-description" id="card-modal-body"></p>
+      <section class="card-modal-related" id="card-modal-related" aria-label="Related cards">
+        <h2>Related</h2>
+        <div class="card-modal-related-grid" id="card-modal-related-grid"></div>
+      </section>
+    </div>
+  </article>
+</div>
+
 <footer>
   <div></div>
 </footer>
@@ -604,6 +712,167 @@
   const saved = localStorage.getItem("theme");
   setTheme(saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches);
   toggle.addEventListener("click", () => setTheme(!html.classList.contains("dark")));
+
+  // ─── Card modal ──────────────────────────────────────────────────────────
+  const cardModal = document.getElementById("card-modal");
+  const modalClose = document.getElementById("card-modal-close");
+  const modalKicker = document.getElementById("card-modal-kicker");
+  const modalTitle = document.getElementById("card-modal-title");
+  const modalSubtitle = document.getElementById("card-modal-subtitle");
+  const modalYear = document.getElementById("card-modal-year");
+  const modalBody = document.getElementById("card-modal-body");
+  const modalMedia = document.getElementById("card-modal-media");
+  const modalAction = document.getElementById("card-modal-action");
+  const modalRelated = document.getElementById("card-modal-related");
+  const modalRelatedGrid = document.getElementById("card-modal-related-grid");
+  const modalFeedCells = Array.from(document.querySelectorAll("#feed-grid .feed-cell"));
+
+  const typeLabels = {
+    projects: "Project",
+    activities: "Activity",
+    reading: "Reading",
+    trips: "Trip",
+    gallery: "Gallery"
+  };
+
+  function textFrom(cell, selectors) {
+    for (const selector of selectors) {
+      const el = cell.querySelector(selector);
+      const text = el ? el.textContent.trim() : "";
+      if (text) return text;
+    }
+    return "";
+  }
+
+  function imageFrom(cell) {
+    const preferred = cell.querySelector(".featured-card-media img, .card-img-fill, .hat-image img, .social-image img, .book-cover img, .carousel-slide img");
+    const fallback = cell.querySelector("img");
+    return preferred || fallback;
+  }
+
+  function titleFrom(cell) {
+    if (cell.querySelector(".social-card") && cell.dataset.title) return cell.dataset.title;
+    return textFrom(cell, [".card-title", ".hat-title", ".book-title", ".talk-card-title", ".social-name"]) ||
+      cell.dataset.title || "Untitled";
+  }
+
+  function kickerFrom(cell) {
+    return textFrom(cell, [".card-label", ".hat-type", ".talk-card-sub"]) ||
+      typeLabels[cell.dataset.type] || "Card";
+  }
+
+  function subtitleFrom(cell) {
+    return textFrom(cell, [".card-desc", ".hat-role", ".book-author", ".social-quote", ".social-handle"]) ||
+      cell.dataset.title || "";
+  }
+
+  function yearFrom(cell) {
+    return textFrom(cell, [".social-date"]);
+  }
+
+  function urlFrom(cell) {
+    const link = cell.querySelector("a[href]");
+    const href = link ? link.getAttribute("href") : "";
+    return href && href !== "#" ? link.href : "";
+  }
+
+  function escapeHtml(text) {
+    return text.replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "\"": "&quot;",
+      "'": "&#39;"
+    }[char]));
+  }
+
+  function setText(el, text) {
+    el.textContent = text;
+    el.style.display = text ? "" : "none";
+  }
+
+  function relatedCardHtml(cell) {
+    const img = imageFrom(cell);
+    const imgHtml = img ? `<img src="${escapeHtml(img.currentSrc || img.src)}" alt="">` : "";
+    return `<article class="card-modal-related-card">
+      <p>${escapeHtml(kickerFrom(cell))}</p>
+      <h3>${escapeHtml(titleFrom(cell))}</h3>
+      ${imgHtml}
+    </article>`;
+  }
+
+  function openCardModal(cell) {
+    const title = titleFrom(cell);
+    const subtitle = subtitleFrom(cell);
+    const img = imageFrom(cell);
+    const url = urlFrom(cell);
+
+    setText(modalKicker, kickerFrom(cell));
+    setText(modalTitle, title);
+    setText(modalSubtitle, subtitle);
+    setText(modalYear, yearFrom(cell));
+    setText(modalBody, subtitle ? subtitle : `A closer look at ${title}.`);
+
+    modalMedia.innerHTML = "";
+    modalMedia.style.display = img ? "" : "none";
+    if (img) {
+      const frame = document.createElement("div");
+      frame.className = "card-modal-media-frame";
+      const modalImg = document.createElement("img");
+      modalImg.src = img.currentSrc || img.src;
+      modalImg.alt = img.alt || title;
+      frame.appendChild(modalImg);
+      modalMedia.appendChild(frame);
+    }
+
+    modalAction.style.display = url ? "" : "none";
+    if (url) modalAction.href = url;
+
+    const related = modalFeedCells
+      .filter(item => item !== cell && item.dataset.type === cell.dataset.type)
+      .slice(0, 3);
+    modalRelated.style.display = related.length ? "" : "none";
+    modalRelatedGrid.innerHTML = related.map(relatedCardHtml).join("");
+
+    cardModal.hidden = false;
+    document.body.style.overflow = "hidden";
+    modalClose.focus();
+  }
+
+  function closeCardModal() {
+    cardModal.hidden = true;
+    document.body.style.overflow = "";
+  }
+
+  modalFeedCells.forEach(cell => {
+    const clickable = cell.querySelector(".card, .carousel-card");
+    if (!clickable) return;
+    if (clickable.tagName !== "A") clickable.tabIndex = 0;
+    clickable.setAttribute("role", "button");
+    clickable.setAttribute("aria-label", `Open ${titleFrom(cell)}`);
+
+    cell.addEventListener("click", event => {
+      if (event.target.closest(".carousel-dot")) return;
+      const anchor = event.target.closest("a");
+      if (anchor && anchor.getAttribute("href") === "#") event.preventDefault();
+      if (!event.target.closest(".card, .carousel-card")) return;
+      openCardModal(cell);
+    });
+
+    clickable.addEventListener("keydown", event => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      openCardModal(cell);
+    });
+  });
+
+  modalClose.addEventListener("click", closeCardModal);
+  cardModal.addEventListener("click", event => {
+    if (event.target === cardModal) closeCardModal();
+  });
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !cardModal.hidden) closeCardModal();
+  });
 </script>
 
 </body>
