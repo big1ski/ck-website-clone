@@ -571,6 +571,11 @@
       .page-body { padding: 2rem; padding-bottom: 5rem; }
     }
 
+    /* Mobile only: show the photo after the KU Leuven card */
+    @media (max-width: 639px) {
+      .projects-grid .photo-cell { order: 1; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .animate-in { animation: none; }
       .scroll-word { transition: none; }
@@ -750,7 +755,7 @@
               </div>
 
               <!-- 5. Photo — (single image) -->
-              <div class="grid-cell aspect-square sm-col-span-2 sm-row-span-2">
+              <div class="grid-cell aspect-square sm-col-span-2 sm-row-span-2 photo-cell">
                 <div class="photo-card">
                   <picture>
                     <source type="image/avif"
