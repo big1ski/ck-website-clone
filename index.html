@@ -152,6 +152,7 @@
       padding: 0.75rem;
       display: flex;
       flex-direction: column;
+      min-width: 0;
     }
 
     /* aspect-square */
@@ -186,6 +187,19 @@
       color: var(--body-secondary);
       position: relative;
     }
+
+    /* Application-status pill on university cards */
+    .uni-status {
+      display: inline-flex; align-items: center;
+      margin-top: 0.5rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem; font-weight: 600; line-height: 1;
+      width: fit-content;
+    }
+    .uni-status.is-accepted { color: #15803d; background: #dcfce7; }
+    .uni-status.is-awaiting { color: #b45309; background: #fef3c7; }
+    .uni-status.is-applied  { color: #1d4ed8; background: #dbeafe; }
 
     .card-title {
       font-size: 1.25rem;
@@ -239,6 +253,9 @@
       width: auto; height: auto; object-fit: contain;
     }
     .featured-card .uni-logo-tile { margin: 0; }
+    /* Cap the featured (Frankfurt) logo height with a fixed value so it fits
+       reliably even on Safari, which mis-resolves max-height:100% in flex. */
+    .featured-card .uni-logo-tile img { max-height: 5.5rem; }
 
     .card-img-wrapper {
       position: absolute;
@@ -507,7 +524,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 4rem 0.75rem 30vh;
+      padding: 4rem 0.75rem 12vh;
     }
 
     .about-text {
@@ -661,6 +678,7 @@
                     <div class="featured-card-text">
                       <p class="card-label">Germany</p>
                       <h3 class="card-title">Frankfurt School</h3>
+                      <span class="uni-status is-applied">Applied</span>
                     </div>
                     <div class="uni-logo-tile">
                       <picture>
@@ -680,6 +698,7 @@
                     <p class="card-label">Netherlands</p>
                     <div class="project-card-text">
                       <h3 class="card-title">Maastricht University</h3>
+                      <span class="uni-status is-accepted">Accepted</span>
                     </div>
                     <div class="uni-logo-tile">
                       <img src="assets/logos/maastricht-logo.png" alt="Maastricht University logo" width="225" height="225" loading="lazy" />
@@ -699,6 +718,7 @@
                         <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
                       </svg>
                     </h3>
+                    <span class="uni-status is-accepted">Accepted</span>
                   </div>
                   <div class="uni-logo-tile">
                     <picture>
@@ -721,6 +741,7 @@
                         <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
                       </svg>
                     </h3>
+                    <span class="uni-status is-awaiting">Awaiting decision</span>
                   </div>
                   <div class="uni-logo-tile">
                     <img src="assets/logos/cbs-logo.png" alt="Copenhagen Business School logo" width="225" height="225" loading="lazy" />
@@ -760,6 +781,7 @@
                     <div class="project-card-text">
                       <p class="card-label">Belgium</p>
                       <h3 class="card-title">KU Leuven</h3>
+                      <span class="uni-status is-accepted">Accepted</span>
                     </div>
                     <div class="uni-logo-tile">
                       <img src="assets/logos/kul-logo.jpeg" alt="KU Leuven logo" width="200" height="200" loading="lazy" />
@@ -877,7 +899,7 @@
   const words = document.querySelectorAll('.scroll-word');
 
   function updateScrollLit() {
-    const viewportMid = window.innerHeight * 0.55;
+    const viewportMid = window.innerHeight * 0.80;
     words.forEach((word) => {
       const rect = word.getBoundingClientRect();
       const wordCenter = rect.top + rect.height / 2;
