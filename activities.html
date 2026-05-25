@@ -312,20 +312,20 @@
     .hat-type { font-size: 0.75rem; font-weight: 600; color: var(--muted-foreground); text-transform: uppercase; letter-spacing: 0.05em; }
     .hat-title { font-size: 1.05rem; font-weight: 600; color: var(--card-foreground); line-height: 1.3; }
     .hat-role  { font-size: 0.875rem; color: var(--body); }
-    .hat-image { margin-top: auto; border-radius: 8px; overflow: hidden; }
-    .hat-image img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
-    .hat-image img.image-contain,
-    .card-modal-media-frame img.image-contain,
-    .card-modal-related-card img.image-contain {
+    .hat-image { margin-top: auto; border-radius: 8px; overflow: hidden; height: 9rem;}
+    .hat-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      object-position: var(--img-pos, center center);
+      transform: scale(var(--img-zoom, 1)) rotate(var(--img-rotate, 0deg));
+      transform-origin: var(--img-origin, center center);
+    }
+    .hat-image:has(img.image-contain) { background: var(--card); }
+    .hat-image img.image-contain {
       object-fit: contain;
       object-position: center;
-      background: var(--card);
       padding: 0.75rem;
-    }
-    .hat-image img.image-focus-hyrox,
-    .card-modal-media-frame img.image-focus-hyrox,
-    .card-modal-related-card img.image-focus-hyrox {
-      object-position: center 60%;
+      aspect-ratio: unset;
+      height: 100%;
     }
 
     /* ─── PHOTO CAROUSEL ──────────────────────────────────────────────────── */
@@ -403,7 +403,7 @@
       position: relative; width: 100%; aspect-ratio: 16/9;
       overflow: hidden; background: var(--card); border-radius: 0.5rem 0.5rem 0 0;
     }
-    .card-modal-media-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .card-modal-media-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
     .card-modal-action {
       display: block; padding: 0.65rem 1rem; text-align: center;
       color: var(--body); font-weight: 600; text-decoration: none;
@@ -548,6 +548,7 @@
                               assets/optimized/photos/ebs-symposium-b1-1600.webp 1600w"
                               sizes="(max-width: 768px) 100vw, 800px" />
                       <img src="assets/optimized/photos/ebs-symposium-b1-800.jpg"
+                           style="--img-pos: center top;"
                            alt="EBS Symposium"
                            width="800"
                            height="777"
@@ -569,17 +570,18 @@
                   <div class="hat-image">
                     <picture>
                       <source type="image/avif"
-                              srcset="assets/optimized/photos/hyrox-stuttgart-400.avif 400w,
-                              assets/optimized/photos/hyrox-stuttgart-800.avif 800w"
+                              srcset="assets/optimized/photos/hyrox-str-400.avif 400w,
+                              assets/optimized/photos/hyrox-str-800.avif 800w"
                               sizes="(max-width: 768px) 100vw, 800px" />
                       <source type="image/webp"
-                              srcset="assets/optimized/photos/hyrox-stuttgart-400.webp 400w,
-                              assets/optimized/photos/hyrox-stuttgart-800.webp 800w"
+                              srcset="assets/optimized/photos/hyrox-str-400.webp 400w,
+                              assets/optimized/photos/hyrox-str-800.webp 800w"
                               sizes="(max-width: 768px) 100vw, 800px" />
-                      <img class="image-focus-hyrox" src="assets/optimized/photos/hyrox-stuttgart-800.jpg"
+                      <img src="assets/optimized/photos/hyrox-str-800.jpg"
+                           style="--img-pos: center 35%;"
                            alt="Hyrox"
-                           width="800"
-                           height="1200"
+                           width="771"
+                           height="1157"
                            loading="lazy"
                            decoding="async" />
                     </picture>
@@ -810,9 +812,6 @@
       const modalImg = document.createElement("img");
       modalImg.src = img.currentSrc || img.src;
       modalImg.alt = img.alt || title;
-      ["image-contain", "image-focus-hyrox"].forEach(className => {
-        if (img.classList.contains(className)) modalImg.classList.add(className);
-      });
       frame.appendChild(modalImg);
       modalMedia.appendChild(frame);
     }

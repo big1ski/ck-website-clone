@@ -144,12 +144,14 @@
       width: 100%; max-width: 1100px;
       display: grid;
       grid-template-columns: 1fr;
+      grid-auto-flow: dense;
+      gap: 1.5rem;
+      padding: 0.75rem;
     }
     @media (min-width: 640px)  { .feed-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 1024px) { .feed-grid { grid-template-columns: repeat(4, 1fr); } }
 
     .feed-cell {
-      padding: 0.75rem;
       display: flex; flex-direction: column;
     }
     .feed-cell.span-2 { grid-column: span 1; }
@@ -307,25 +309,28 @@
     .book-title { font-size: 0.875rem; font-weight: 600; color: var(--card-foreground); line-height: 1.3; }
     .book-author { font-size: 0.75rem; color: var(--muted-foreground); }
 
+    /* ─── FEED COMING SOON ───────────────────────────────────────────────── */
+    .feed-coming-soon { display: flex; align-items: center; justify-content: center; height: 100%; font-size: clamp(1.25rem, 3vw, 2rem); font-weight: 700; letter-spacing: -0.02em; color: var(--card-foreground); pointer-events: none; }
+
     /* ─── HAT CARD ────────────────────────────────────────────────────────── */
     .hat-card { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; height: 100%; }
     .hat-type { font-size: 0.75rem; font-weight: 600; color: var(--muted-foreground); text-transform: uppercase; letter-spacing: 0.05em; }
     .hat-title { font-size: 1.05rem; font-weight: 600; color: var(--card-foreground); line-height: 1.3; }
     .hat-role  { font-size: 0.875rem; color: var(--body); }
-    .hat-image { margin-top: auto; border-radius: 8px; overflow: hidden; }
-    .hat-image img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
-    .hat-image img.image-contain,
-    .card-modal-media-frame img.image-contain,
-    .card-modal-related-card img.image-contain {
+    .hat-image { margin-top: auto; border-radius: 8px; overflow: hidden; height: 9rem; }
+    .hat-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      object-position: var(--img-pos, center center);
+      transform: scale(var(--img-zoom, 1)) rotate(var(--img-rotate, 0deg));
+      transform-origin: var(--img-origin, center center);
+    }
+    .hat-image:has(img.image-contain) { background: var(--card); }
+    .hat-image img.image-contain {
       object-fit: contain;
       object-position: center;
-      background: var(--card);
       padding: 0.75rem;
-    }
-    .hat-image img.image-focus-hyrox,
-    .card-modal-media-frame img.image-focus-hyrox,
-    .card-modal-related-card img.image-focus-hyrox {
-      object-position: center 60%;
+      aspect-ratio: unset;
+      height: 100%;
     }
 
     /* ─── PHOTO CAROUSEL ──────────────────────────────────────────────────── */
@@ -348,11 +353,16 @@
       opacity: 0; top: 0; left: 0; transform: translate(-50%, -120%);
     }
 
-    /* aspect helpers */
+    /* aspect helpers — only the square sets the row unit; spanning cells size from grid tracks */
     .aspect-sq  { aspect-ratio: 1/1; }
     .aspect-2-1 { aspect-ratio: 2/1; }
     .aspect-1-2 { aspect-ratio: 1/2; }
-    @media (min-width: 1024px) { .feed-cell.tall { grid-row: span 2; } }
+    /* At the 4-col layout, tall spans 2 rows and wide spans 2 cols — drop their own
+       aspect-ratio so their size comes purely from the grid (tall = 2 squares + gap). */
+    @media (min-width: 1024px) {
+      .feed-cell.tall { grid-row: span 2; aspect-ratio: auto; }
+      .feed-cell.span-2.aspect-2-1 { aspect-ratio: auto; }
+    }
 
     .card { cursor: pointer; }
 
@@ -400,6 +410,7 @@
     .card-modal-title {
       margin-top: 0.35rem; color: var(--primary-brand);
       font-size: clamp(2.4rem, 5vw, 3.35rem); line-height: 1; font-weight: 700;
+      overflow-wrap: break-word;
     }
     .card-modal-subtitle {
       margin-top: 0.45rem; color: var(--secondary-brand);
@@ -416,7 +427,7 @@
       position: relative; width: 100%; aspect-ratio: 16/9;
       overflow: hidden; background: var(--card); border-radius: 0.5rem 0.5rem 0 0;
     }
-    .card-modal-media-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .card-modal-media-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
     .card-modal-action {
       display: block; padding: 0.65rem 1rem; text-align: center;
       color: var(--body); font-weight: 600; text-decoration: none;
@@ -438,9 +449,20 @@
     }
     .card-modal-related-card p { color: var(--body-secondary); font-size: 0.8rem; font-weight: 600; }
     .card-modal-related-card h3 { color: var(--card-foreground); font-size: 1.08rem; line-height: 1.2; margin-top: 0.25rem; }
-    .card-modal-related-card img {
+    .card-modal-related-card:not(.related-clone) img {
       width: 100%; aspect-ratio: 16/9; object-fit: cover; object-position: top;
       border-radius: 0.5rem; margin-top: 0.75rem;
+    }
+    .card-modal-related-card.related-clone {
+      background: transparent; padding: 0; min-height: 0; overflow: visible;
+      cursor: pointer; border-radius: 12px;
+    }
+    .card-modal-related-card.related-clone .card {
+      height: 100%; min-height: 240px; cursor: pointer;
+    }
+    .card-modal-related-card.related-clone .hat-image { height: 9rem; }
+    .card-modal-related-card.related-clone:focus-visible {
+      outline: 2px solid var(--primary-brand); outline-offset: 2px;
     }
     @media (max-width: 639px) {
       .card-modal-backdrop { padding: 1rem; }
@@ -646,116 +668,7 @@
                 </button>
               </div>
 
-              <!-- Reading -->
-              <div class="folder-wrap">
-                <button class="folder-btn" data-filter="reading">
-                  <div class="folder-body">
-                    <div class="folder-tab-nub"></div>
-                    <div class="folder-body-bg"></div>
-                  </div>
-                  <div class="folder-img-1">
-                    <img src="assets/books/book-handmaids-tale.jpg" alt="" width="973" height="1500" loading="lazy" decoding="async" />
-                  </div>
-                  <div class="folder-img-2">
-                    <img src="assets/books/book-red-rising.jpg" alt="" width="329" height="500" loading="lazy" decoding="async" />
-                  </div>
-                  <div class="folder-img-3">
-                    <img src="assets/books/book-almanack-naval-ravikant.jpg" alt="" width="324" height="500" loading="lazy" decoding="async" />
-                  </div>
-                  <div class="folder-footer-wrap">
-                    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" preserveAspectRatio="none" viewBox="0 0 200 100">
-                      <defs><clipPath id="clip-reading"><path d="M 8,18 Q 8,12 14,12 L 56,12 Q 62,12 64,18 L 66,22 L 192,22 Q 200,22 200,30 L 200,92 Q 200,100 192,100 L 8,100 Q 0,100 0,92 L 0,26 Q 0,18 8,18 Z"/></clipPath></defs>
-                    </svg>
-                    <div class="folder-footer-clip" style="clip-path:url(#clip-reading)">
-                      <div class="folder-footer-inner">
-                        <span class="folder-name">Reading</span>
-                        <svg class="folder-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                      </div>
-                    </div>
-                  </div>
-                </button>
-              </div>
 
-              <!-- Trips -->
-              <div class="folder-wrap">
-                <button class="folder-btn" data-filter="trips">
-                  <div class="folder-body">
-                    <div class="folder-tab-nub"></div>
-                    <div class="folder-body-bg"></div>
-                  </div>
-                  <div class="folder-img-1">
-                    <picture>
-                      <source type="image/avif"
-                              srcset="assets/optimized/photos/istanbul-blue-mosque-400.avif 400w,
-                              assets/optimized/photos/istanbul-blue-mosque-800.avif 800w,
-                              assets/optimized/photos/istanbul-blue-mosque-1600.avif 1600w"
-                              sizes="(max-width: 768px) 100vw, 800px" />
-                      <source type="image/webp"
-                              srcset="assets/optimized/photos/istanbul-blue-mosque-400.webp 400w,
-                              assets/optimized/photos/istanbul-blue-mosque-800.webp 800w,
-                              assets/optimized/photos/istanbul-blue-mosque-1600.webp 1600w"
-                              sizes="(max-width: 768px) 100vw, 800px" />
-                      <img src="assets/optimized/photos/istanbul-blue-mosque-800.jpg"
-                           alt=""
-                           width="800"
-                           height="1067"
-                           loading="lazy"
-                           decoding="async" />
-                    </picture>
-                  </div>
-                  <div class="folder-img-2">
-                    <picture>
-                      <source type="image/avif"
-                              srcset="assets/optimized/photos/cappadocia-love-valley-400.avif 400w,
-                              assets/optimized/photos/cappadocia-love-valley-800.avif 800w,
-                              assets/optimized/photos/cappadocia-love-valley-1600.avif 1600w"
-                              sizes="(max-width: 768px) 100vw, 800px" />
-                      <source type="image/webp"
-                              srcset="assets/optimized/photos/cappadocia-love-valley-400.webp 400w,
-                              assets/optimized/photos/cappadocia-love-valley-800.webp 800w,
-                              assets/optimized/photos/cappadocia-love-valley-1600.webp 1600w"
-                              sizes="(max-width: 768px) 100vw, 800px" />
-                      <img src="assets/optimized/photos/cappadocia-love-valley-800.jpg"
-                           alt=""
-                           width="800"
-                           height="1067"
-                           loading="lazy"
-                           decoding="async" />
-                    </picture>
-                  </div>
-                  <div class="folder-img-3">
-                    <picture>
-                      <source type="image/avif"
-                              srcset="assets/optimized/photos/dubai-burj-khalifa-400.avif 400w,
-                              assets/optimized/photos/dubai-burj-khalifa-800.avif 800w,
-                              assets/optimized/photos/dubai-burj-khalifa-1600.avif 1600w"
-                              sizes="(max-width: 768px) 100vw, 800px" />
-                      <source type="image/webp"
-                              srcset="assets/optimized/photos/dubai-burj-khalifa-400.webp 400w,
-                              assets/optimized/photos/dubai-burj-khalifa-800.webp 800w,
-                              assets/optimized/photos/dubai-burj-khalifa-1600.webp 1600w"
-                              sizes="(max-width: 768px) 100vw, 800px" />
-                      <img src="assets/optimized/photos/dubai-burj-khalifa-800.jpg"
-                           alt=""
-                           width="800"
-                           height="772"
-                           loading="lazy"
-                           decoding="async" />
-                    </picture>
-                  </div>
-                  <div class="folder-footer-wrap">
-                    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" preserveAspectRatio="none" viewBox="0 0 200 100">
-                      <defs><clipPath id="clip-trips"><path d="M 8,18 Q 8,12 14,12 L 56,12 Q 62,12 64,18 L 66,22 L 192,22 Q 200,22 200,30 L 200,92 Q 200,100 192,100 L 8,100 Q 0,100 0,92 L 0,26 Q 0,18 8,18 Z"/></clipPath></defs>
-                    </svg>
-                    <div class="folder-footer-clip" style="clip-path:url(#clip-trips)">
-                      <div class="folder-footer-inner">
-                        <span class="folder-name">Trips</span>
-                        <svg class="folder-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-                      </div>
-                    </div>
-                  </div>
-                </button>
-              </div>
 
               <!-- Gallery -->
               <div class="folder-wrap">
@@ -900,6 +813,7 @@
                               assets/optimized/photos/ebs-symposium-b1-1600.webp 1600w"
                               sizes="(max-width: 768px) 100vw, 800px" />
                       <img src="assets/optimized/photos/ebs-symposium-b1-800.jpg"
+                           style="--img-pos: center top;"
                            alt="EBS Symposium"
                            width="800"
                            height="777"
@@ -921,17 +835,18 @@
                   <div class="hat-image">
                     <picture>
                       <source type="image/avif"
-                              srcset="assets/optimized/photos/hyrox-stuttgart-400.avif 400w,
-                              assets/optimized/photos/hyrox-stuttgart-800.avif 800w"
+                              srcset="assets/optimized/photos/hyrox-str-400.avif 400w,
+                              assets/optimized/photos/hyrox-str-800.avif 800w"
                               sizes="(max-width: 768px) 100vw, 800px" />
                       <source type="image/webp"
-                              srcset="assets/optimized/photos/hyrox-stuttgart-400.webp 400w,
-                              assets/optimized/photos/hyrox-stuttgart-800.webp 800w"
+                              srcset="assets/optimized/photos/hyrox-str-400.webp 400w,
+                              assets/optimized/photos/hyrox-str-800.webp 800w"
                               sizes="(max-width: 768px) 100vw, 800px" />
-                      <img class="image-focus-hyrox" src="assets/optimized/photos/hyrox-stuttgart-800.jpg"
+                      <img src="assets/optimized/photos/hyrox-str-800.jpg"
+                           style="--img-pos: center 35%;"
                            alt="Hyrox"
-                           width="800"
-                           height="1200"
+                           width="771"
+                           height="1157"
                            loading="lazy"
                            decoding="async" />
                     </picture>
@@ -971,20 +886,12 @@
               </a>
             </div>
 
-            <!-- Book: The Handmaid's Tale -->
-            <div class="feed-cell aspect-sq" data-type="reading" data-title="The Handmaid's Tale">
-              <a class="card" href="https://www.goodreads.com/book/show/34454589-the-handmaid-s-tale" target="_blank" rel="noopener" style="display:block;height:100%;text-decoration:none;">
-                <div class="book-card">
-                  <div class="book-cover-area">
-                    <div class="book-cover">
-                      <img src="assets/books/book-handmaids-tale.jpg" alt="The Handmaid's Tale" width="973" height="1500" loading="lazy" decoding="async" />
-                      <div class="book-spine"></div>
-                    </div>
-                  </div>
-                  <div><div class="book-title">The Handmaid's Tale</div><div class="book-author">Margaret Atwood</div></div>
-                </div>
-              </a>
+            <!-- Coming Soon: Projects -->
+            <div class="feed-cell span-2 aspect-2-1" data-type="projects" data-title="Coming Soon">
+              <div class="card" style="height:100%;"><div class="feed-coming-soon">Projects Coming Soon…</div></div>
             </div>
+
+
 
             <!-- Project (Coming Soon) — temporarily commented out
             <div class="feed-cell span-2 aspect-2-1" data-type="projects" data-title="Screenshot to Design Mobbin">
@@ -1022,20 +929,6 @@
             </div>
             -->
 
-            <!-- Book: Red Rising -->
-            <div class="feed-cell aspect-sq" data-type="reading" data-title="Red Rising">
-              <a class="card" href="https://www.goodreads.com/book/show/15839976-red-rising" target="_blank" rel="noopener" style="display:block;height:100%;text-decoration:none;">
-                <div class="book-card">
-                  <div class="book-cover-area">
-                    <div class="book-cover">
-                      <img src="assets/books/book-red-rising.jpg" alt="Red Rising" width="329" height="500" loading="lazy" decoding="async" />
-                      <div class="book-spine"></div>
-                    </div>
-                  </div>
-                  <div><div class="book-title">Red Rising</div><div class="book-author">Pierce Brown</div></div>
-                </div>
-              </a>
-            </div>
 
             <!-- Project (Coming Soon) — temporarily commented out
             <div class="feed-cell aspect-sq" data-type="projects" data-title="Mobbin Enterprise">
@@ -1068,20 +961,6 @@
             </div>
             -->
 
-            <!-- Book: The Almanack of Naval Ravikant -->
-            <div class="feed-cell aspect-sq" data-type="reading" data-title="The Almanack of Naval Ravikant">
-              <a class="card" href="https://www.goodreads.com/book/show/54898389-the-almanack-of-naval-ravikant" target="_blank" rel="noopener" style="display:block;height:100%;text-decoration:none;">
-                <div class="book-card">
-                  <div class="book-cover-area">
-                    <div class="book-cover">
-                      <img src="assets/books/book-almanack-naval-ravikant.jpg" alt="The Almanack of Naval Ravikant" width="324" height="500" loading="lazy" decoding="async" />
-                      <div class="book-spine"></div>
-                    </div>
-                  </div>
-                  <div><div class="book-title">The Almanack of Naval Ravikant</div><div class="book-author">Eric Jorgenson</div></div>
-                </div>
-              </a>
-            </div>
 
             <!-- Projects (Coming Soon) — temporarily commented out
             <div class="feed-cell aspect-sq" data-type="projects" data-title="Artisan">
@@ -1143,20 +1022,6 @@
             </div>
             -->
 
-            <!-- Book: Zero to One -->
-            <div class="feed-cell aspect-sq" data-type="reading" data-title="Zero to One">
-              <a class="card" href="https://www.goodreads.com/book/show/18050143-zero-to-one" target="_blank" rel="noopener" style="display:block;height:100%;text-decoration:none;">
-                <div class="book-card">
-                  <div class="book-cover-area">
-                    <div class="book-cover">
-                      <img src="assets/books/book-zero-to-one.jpg" alt="Zero to One" width="332" height="500" loading="lazy" decoding="async" />
-                      <div class="book-spine"></div>
-                    </div>
-                  </div>
-                  <div><div class="book-title">Zero to One</div><div class="book-author">Peter Thiel with Blake Masters</div></div>
-                </div>
-              </a>
-            </div>
 
             <!-- Activity: LinkedIn post (Enno Mahr / MUNISS) — clickable, opens in a new tab (no modal). -->
             <div class="feed-cell aspect-sq" data-type="activities" data-title="MUNISS 2025">
@@ -1254,28 +1119,6 @@
               </div>
             </div>
 
-            <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
-              <div class="gallery-card">
-                <picture>
-                  <source type="image/avif"
-                          srcset="assets/optimized/gallery/c05f4110-9176-4f53-916f-9174dc168e14-400.avif 400w,
-                          assets/optimized/gallery/c05f4110-9176-4f53-916f-9174dc168e14-800.avif 800w,
-                          assets/optimized/gallery/c05f4110-9176-4f53-916f-9174dc168e14-1600.avif 1600w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <source type="image/webp"
-                          srcset="assets/optimized/gallery/c05f4110-9176-4f53-916f-9174dc168e14-400.webp 400w,
-                          assets/optimized/gallery/c05f4110-9176-4f53-916f-9174dc168e14-800.webp 800w,
-                          assets/optimized/gallery/c05f4110-9176-4f53-916f-9174dc168e14-1600.webp 1600w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <img src="assets/optimized/gallery/c05f4110-9176-4f53-916f-9174dc168e14-800.jpg"
-                       alt="Gallery photo"
-                       width="800"
-                       height="534"
-                       loading="lazy"
-                       decoding="async" />
-                </picture>
-              </div>
-            </div>
 
             <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
               <div class="gallery-card">
@@ -1300,28 +1143,6 @@
               </div>
             </div>
 
-            <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Gallery">
-              <div class="gallery-card">
-                <picture>
-                  <source type="image/avif"
-                          srcset="assets/optimized/gallery/FullSizeRender 3-400.avif 400w,
-                          assets/optimized/gallery/FullSizeRender 3-800.avif 800w,
-                          assets/optimized/gallery/FullSizeRender 3-1200.avif 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <source type="image/webp"
-                          srcset="assets/optimized/gallery/FullSizeRender 3-400.webp 400w,
-                          assets/optimized/gallery/FullSizeRender 3-800.webp 800w,
-                          assets/optimized/gallery/FullSizeRender 3-1200.webp 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <img src="assets/optimized/gallery/FullSizeRender 3-800.jpg"
-                       alt="Gallery photo"
-                       width="800"
-                       height="1067"
-                       loading="lazy"
-                       decoding="async" />
-                </picture>
-              </div>
-            </div>
 
             <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
               <div class="gallery-card">
@@ -1369,28 +1190,6 @@
               </div>
             </div>
 
-            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
-              <div class="gallery-card">
-                <picture>
-                  <source type="image/avif"
-                          srcset="assets/optimized/gallery/IMG_0018-400.avif 400w,
-                          assets/optimized/gallery/IMG_0018-800.avif 800w,
-                          assets/optimized/gallery/IMG_0018-1197.avif 1197w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <source type="image/webp"
-                          srcset="assets/optimized/gallery/IMG_0018-400.webp 400w,
-                          assets/optimized/gallery/IMG_0018-800.webp 800w,
-                          assets/optimized/gallery/IMG_0018-1197.webp 1197w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <img src="assets/optimized/gallery/IMG_0018-800.jpg"
-                       alt="Gallery photo"
-                       width="800"
-                       height="1069"
-                       loading="lazy"
-                       decoding="async" />
-                </picture>
-              </div>
-            </div>
 
             <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
               <div class="gallery-card">
@@ -1507,28 +1306,6 @@
               </div>
             </div>
 
-            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
-              <div class="gallery-card">
-                <picture>
-                  <source type="image/avif"
-                          srcset="assets/optimized/gallery/IMG_1299-400.avif 400w,
-                          assets/optimized/gallery/IMG_1299-800.avif 800w,
-                          assets/optimized/gallery/IMG_1299-1600.avif 1600w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <source type="image/webp"
-                          srcset="assets/optimized/gallery/IMG_1299-400.webp 400w,
-                          assets/optimized/gallery/IMG_1299-800.webp 800w,
-                          assets/optimized/gallery/IMG_1299-1600.webp 1600w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <img src="assets/optimized/gallery/IMG_1299-800.jpg"
-                       alt="Gallery photo"
-                       width="800"
-                       height="600"
-                       loading="lazy"
-                       decoding="async" />
-                </picture>
-              </div>
-            </div>
 
             <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
               <div class="gallery-card">
@@ -1599,97 +1376,9 @@
               </div>
             </div>
 
-            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
-              <div class="gallery-card">
-                <picture>
-                  <source type="image/avif"
-                          srcset="assets/optimized/gallery/IMG_2057-400.avif 400w,
-                          assets/optimized/gallery/IMG_2057-800.avif 800w,
-                          assets/optimized/gallery/IMG_2057-1600.avif 1600w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <source type="image/webp"
-                          srcset="assets/optimized/gallery/IMG_2057-400.webp 400w,
-                          assets/optimized/gallery/IMG_2057-800.webp 800w,
-                          assets/optimized/gallery/IMG_2057-1600.webp 1600w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <img src="assets/optimized/gallery/IMG_2057-800.jpg"
-                       alt="Gallery photo"
-                       width="800"
-                       height="600"
-                       loading="lazy"
-                       decoding="async" />
-                </picture>
-              </div>
-            </div>
 
-            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
-              <div class="gallery-card">
-                <picture>
-                  <source type="image/avif"
-                          srcset="assets/optimized/gallery/IMG_2059-400.avif 400w,
-                          assets/optimized/gallery/IMG_2059-800.avif 800w,
-                          assets/optimized/gallery/IMG_2059-1600.avif 1600w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <source type="image/webp"
-                          srcset="assets/optimized/gallery/IMG_2059-400.webp 400w,
-                          assets/optimized/gallery/IMG_2059-800.webp 800w,
-                          assets/optimized/gallery/IMG_2059-1600.webp 1600w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <img src="assets/optimized/gallery/IMG_2059-800.jpg"
-                       alt="Gallery photo"
-                       width="800"
-                       height="600"
-                       loading="lazy"
-                       decoding="async" />
-                </picture>
-              </div>
-            </div>
 
-            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
-              <div class="gallery-card">
-                <picture>
-                  <source type="image/avif"
-                          srcset="assets/optimized/gallery/IMG_2133-400.avif 400w,
-                          assets/optimized/gallery/IMG_2133-800.avif 800w,
-                          assets/optimized/gallery/IMG_2133-1200.avif 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <source type="image/webp"
-                          srcset="assets/optimized/gallery/IMG_2133-400.webp 400w,
-                          assets/optimized/gallery/IMG_2133-800.webp 800w,
-                          assets/optimized/gallery/IMG_2133-1200.webp 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <img src="assets/optimized/gallery/IMG_2133-800.jpg"
-                       alt="Gallery photo"
-                       width="800"
-                       height="1067"
-                       loading="lazy"
-                       decoding="async" />
-                </picture>
-              </div>
-            </div>
 
-            <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
-              <div class="gallery-card">
-                <picture>
-                  <source type="image/avif"
-                          srcset="assets/optimized/gallery/IMG_2159-400.avif 400w,
-                          assets/optimized/gallery/IMG_2159-800.avif 800w,
-                          assets/optimized/gallery/IMG_2159-1200.avif 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <source type="image/webp"
-                          srcset="assets/optimized/gallery/IMG_2159-400.webp 400w,
-                          assets/optimized/gallery/IMG_2159-800.webp 800w,
-                          assets/optimized/gallery/IMG_2159-1200.webp 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <img src="assets/optimized/gallery/IMG_2159-800.jpg"
-                       alt="Gallery photo"
-                       width="800"
-                       height="1067"
-                       loading="lazy"
-                       decoding="async" />
-                </picture>
-              </div>
-            </div>
 
             <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
               <div class="gallery-card">
@@ -1783,28 +1472,6 @@
               </div>
             </div>
 
-            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
-              <div class="gallery-card">
-                <picture>
-                  <source type="image/avif"
-                          srcset="assets/optimized/gallery/IMG_2878-400.avif 400w,
-                          assets/optimized/gallery/IMG_2878-800.avif 800w,
-                          assets/optimized/gallery/IMG_2878-900.avif 900w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <source type="image/webp"
-                          srcset="assets/optimized/gallery/IMG_2878-400.webp 400w,
-                          assets/optimized/gallery/IMG_2878-800.webp 800w,
-                          assets/optimized/gallery/IMG_2878-900.webp 900w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <img src="assets/optimized/gallery/IMG_2878-800.jpg"
-                       alt="Gallery photo"
-                       width="800"
-                       height="1422"
-                       loading="lazy"
-                       decoding="async" />
-                </picture>
-              </div>
-            </div>
 
             <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
               <div class="gallery-card">
@@ -1967,28 +1634,6 @@
               </div>
             </div>
 
-            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
-              <div class="gallery-card">
-                <picture>
-                  <source type="image/avif"
-                          srcset="assets/optimized/gallery/IMG_3577-400.avif 400w,
-                          assets/optimized/gallery/IMG_3577-800.avif 800w,
-                          assets/optimized/gallery/IMG_3577-1200.avif 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <source type="image/webp"
-                          srcset="assets/optimized/gallery/IMG_3577-400.webp 400w,
-                          assets/optimized/gallery/IMG_3577-800.webp 800w,
-                          assets/optimized/gallery/IMG_3577-1200.webp 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <img src="assets/optimized/gallery/IMG_3577-800.jpg"
-                       alt="Gallery photo"
-                       width="800"
-                       height="1067"
-                       loading="lazy"
-                       decoding="async" />
-                </picture>
-              </div>
-            </div>
 
             <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
               <div class="gallery-card">
@@ -2312,28 +1957,6 @@
               </div>
             </div>
 
-            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
-              <div class="gallery-card">
-                <picture>
-                  <source type="image/avif"
-                          srcset="assets/optimized/gallery/IMG_5472-400.avif 400w,
-                          assets/optimized/gallery/IMG_5472-800.avif 800w,
-                          assets/optimized/gallery/IMG_5472-1200.avif 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <source type="image/webp"
-                          srcset="assets/optimized/gallery/IMG_5472-400.webp 400w,
-                          assets/optimized/gallery/IMG_5472-800.webp 800w,
-                          assets/optimized/gallery/IMG_5472-1200.webp 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <img src="assets/optimized/gallery/IMG_5472-800.jpg"
-                       alt="Gallery photo"
-                       width="800"
-                       height="1067"
-                       loading="lazy"
-                       decoding="async" />
-                </picture>
-              </div>
-            </div>
 
             <div class="feed-cell aspect-1-2 tall" data-type="gallery" data-title="Gallery">
               <div class="gallery-card">
@@ -2519,51 +2142,7 @@
               </div>
             </div>
 
-            <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Gallery">
-              <div class="gallery-card">
-                <picture>
-                  <source type="image/avif"
-                          srcset="assets/optimized/gallery/IMG_7355-400.avif 400w,
-                          assets/optimized/gallery/IMG_7355-800.avif 800w,
-                          assets/optimized/gallery/IMG_7355-1200.avif 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <source type="image/webp"
-                          srcset="assets/optimized/gallery/IMG_7355-400.webp 400w,
-                          assets/optimized/gallery/IMG_7355-800.webp 800w,
-                          assets/optimized/gallery/IMG_7355-1200.webp 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <img src="assets/optimized/gallery/IMG_7355-800.jpg"
-                       alt="Gallery photo"
-                       width="800"
-                       height="1067"
-                       loading="lazy"
-                       decoding="async" />
-                </picture>
-              </div>
-            </div>
 
-            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
-              <div class="gallery-card">
-                <picture>
-                  <source type="image/avif"
-                          srcset="assets/optimized/gallery/IMG_7360-400.avif 400w,
-                          assets/optimized/gallery/IMG_7360-800.avif 800w,
-                          assets/optimized/gallery/IMG_7360-1200.avif 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <source type="image/webp"
-                          srcset="assets/optimized/gallery/IMG_7360-400.webp 400w,
-                          assets/optimized/gallery/IMG_7360-800.webp 800w,
-                          assets/optimized/gallery/IMG_7360-1200.webp 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <img src="assets/optimized/gallery/IMG_7360-800.jpg"
-                       alt="Gallery photo"
-                       width="800"
-                       height="1067"
-                       loading="lazy"
-                       decoding="async" />
-                </picture>
-              </div>
-            </div>
 
             <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
               <div class="gallery-card">
@@ -2634,28 +2213,6 @@
               </div>
             </div>
 
-            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
-              <div class="gallery-card">
-                <picture>
-                  <source type="image/avif"
-                          srcset="assets/optimized/gallery/IMG_7917-400.avif 400w,
-                          assets/optimized/gallery/IMG_7917-800.avif 800w,
-                          assets/optimized/gallery/IMG_7917-1200.avif 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <source type="image/webp"
-                          srcset="assets/optimized/gallery/IMG_7917-400.webp 400w,
-                          assets/optimized/gallery/IMG_7917-800.webp 800w,
-                          assets/optimized/gallery/IMG_7917-1200.webp 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <img src="assets/optimized/gallery/IMG_7917-800.jpg"
-                       alt="Gallery photo"
-                       width="800"
-                       height="1067"
-                       loading="lazy"
-                       decoding="async" />
-                </picture>
-              </div>
-            </div>
 
             <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Gallery">
               <div class="gallery-card">
@@ -2772,28 +2329,6 @@
               </div>
             </div>
 
-            <div class="feed-cell aspect-sq" data-type="gallery" data-title="Gallery">
-              <div class="gallery-card">
-                <picture>
-                  <source type="image/avif"
-                          srcset="assets/optimized/gallery/IMG_8930-400.avif 400w,
-                          assets/optimized/gallery/IMG_8930-800.avif 800w,
-                          assets/optimized/gallery/IMG_8930-1200.avif 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <source type="image/webp"
-                          srcset="assets/optimized/gallery/IMG_8930-400.webp 400w,
-                          assets/optimized/gallery/IMG_8930-800.webp 800w,
-                          assets/optimized/gallery/IMG_8930-1200.webp 1200w"
-                          sizes="(max-width: 768px) 100vw, 800px" />
-                  <img src="assets/optimized/gallery/IMG_8930-800.jpg"
-                       alt="Gallery photo"
-                       width="800"
-                       height="1067"
-                       loading="lazy"
-                       decoding="async" />
-                </picture>
-              </div>
-            </div>
 
             <div class="feed-cell span-2 aspect-2-1" data-type="gallery" data-title="Gallery">
               <div class="gallery-card">
@@ -3097,9 +2632,7 @@
     feedCells.forEach(cell => {
       const type  = cell.dataset.type  || '';
       const title = (cell.dataset.title || '').toLowerCase();
-      const matchFilter = activeFilter === 'all' ||
-        type === activeFilter ||
-        (activeFilter === 'gallery' && type === 'trips');
+      const matchFilter = activeFilter === 'all' || type === activeFilter;
       const matchSearch = !q || title.includes(q);
       cell.classList.toggle('hidden', !matchFilter || !matchSearch);
     });
@@ -3205,16 +2738,37 @@
     el.style.display = text ? '' : 'none';
   }
 
-  function relatedCardHtml(cell) {
-    const img = imageFrom(cell);
-    const imageClasses = ['image-contain', 'image-focus-hyrox'].filter(className => img && img.classList.contains(className));
-    const imgClass = imageClasses.length ? ` class="${imageClasses.join(' ')}"` : '';
-    const imgHtml = img ? `<img${imgClass} src="${escapeHtml(img.currentSrc || img.src)}" alt="">` : '';
-    return `<article class="card-modal-related-card">
-      <p>${escapeHtml(kickerFrom(cell))}</p>
-      <h3>${escapeHtml(titleFrom(cell))}</h3>
-      ${imgHtml}
-    </article>`;
+  // Sets the modal title, adding a break opportunity after "@" so long titles
+  // like "Business@School" wrap at the @ instead of mid-word.
+  function setTitleText(el, text) {
+    el.innerHTML = escapeHtml(text).replace(/@/g, '@<wbr>');
+    el.style.display = text ? '' : 'none';
+  }
+
+  function renderRelatedCard(relCell) {
+    const card = relCell.querySelector('.card');
+    const wrap = document.createElement('div');
+    wrap.className = 'card-modal-related-card related-clone';
+    if (card) {
+      const clone = card.cloneNode(true);
+      clone.removeAttribute('href');
+      clone.removeAttribute('target');
+      clone.removeAttribute('role');
+      clone.querySelectorAll('.arrow-up-right').forEach(el => el.remove());
+      wrap.appendChild(clone);
+    } else {
+      wrap.innerHTML = `<p>${escapeHtml(kickerFrom(relCell))}</p><h3>${escapeHtml(titleFrom(relCell))}</h3>`;
+    }
+    wrap.setAttribute('role', 'button');
+    wrap.tabIndex = 0;
+    wrap.setAttribute('aria-label', `Open ${titleFrom(relCell)}`);
+    wrap.addEventListener('click', () => openCardModal(relCell));
+    wrap.addEventListener('keydown', event => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      openCardModal(relCell);
+    });
+    return wrap;
   }
 
   function openCardModal(cell) {
@@ -3224,7 +2778,7 @@
     const url = urlFrom(cell);
 
     setText(modalKicker, kickerFrom(cell));
-    setText(modalTitle, title);
+    setTitleText(modalTitle, title);
     setText(modalSubtitle, subtitle);
     setText(modalYear, yearFrom(cell));
     setText(modalBody, descFrom(cell) || (subtitle ? subtitle : `A closer look at ${title}.`));
@@ -3251,7 +2805,8 @@
       .filter(item => item !== cell && !item.classList.contains('hidden') && item.dataset.type === cell.dataset.type)
       .slice(0, 3);
     modalRelated.style.display = related.length ? '' : 'none';
-    modalRelatedGrid.innerHTML = related.map(relatedCardHtml).join('');
+    modalRelatedGrid.innerHTML = '';
+    related.forEach(relCell => modalRelatedGrid.appendChild(renderRelatedCard(relCell)));
 
     cardModal.hidden = false;
     document.body.style.overflow = 'hidden';

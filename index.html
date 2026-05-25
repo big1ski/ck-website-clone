@@ -224,11 +224,15 @@
 
     /* University logo tile (replaces initial-circle / blue box) */
     .uni-logo-tile {
-      flex: 1; min-height: 0; margin-top: 0.85rem;
+      flex: 1; min-height: 0; min-width: 0; margin-top: 0.85rem;
       display: flex; align-items: center; justify-content: center;
       background: #fff; border-radius: 10px;
-      padding: 1.25rem;
+      padding: 1.25rem; overflow: hidden;
       box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary-brand) 10%, transparent);
+    }
+    .uni-logo-tile picture {
+      display: flex; align-items: center; justify-content: center;
+      max-width: 100%; max-height: 100%; min-width: 0; min-height: 0;
     }
     .uni-logo-tile img {
       max-width: 100%; max-height: 100%;
@@ -644,10 +648,6 @@
               </span>
             </h1>
             <h2 class="hero-tagline animate-in delay-3">Class of 2026.</h2>
-            <p class="hero-role animate-in delay-4">
-              Senior @
-              <a href="#" class="dotted-link">International School of Stuttgart</a>
-            </p>
           </section>
 
           <!-- Projects Bento Grid -->
@@ -772,7 +772,7 @@
 
             <!-- Explore everything link -->
             <div class="explore-link-wrapper">
-              <a href="#" class="explore-link">
+              <a href="everything.html" class="explore-link">
                 Explore everything
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
@@ -794,7 +794,7 @@
                 <span class="scroll-word">As </span><span class="scroll-word">I </span><span class="scroll-word">look </span><span class="scroll-word">toward </span><span class="scroll-word">the </span><span class="scroll-word">future, </span><span class="scroll-word">I'm </span><span class="scroll-word">excited </span><span class="scroll-word">to </span><span class="scroll-word">begin </span><span class="scroll-word">a </span><span class="scroll-word">new </span><span class="scroll-word">chapter </span><span class="scroll-word">studying </span><span class="scroll-word">in </span><span class="scroll-word">Europe, </span><span class="scroll-word">where </span><span class="scroll-word">I </span><span class="scroll-word">hope </span><span class="scroll-word">to </span><span class="scroll-word">broaden </span><span class="scroll-word">my </span><span class="scroll-word">perspective </span><span class="scroll-word">and </span><span class="scroll-word">continue </span><span class="scroll-word">developing </span><span class="scroll-word">my </span><span class="scroll-word">interests. </span><span class="scroll-word">At </span><span class="scroll-word">the </span><span class="scroll-word">moment, </span><span class="scroll-word">I'm </span><span class="scroll-word">awaiting </span><span class="scroll-word">decisions </span><span class="scroll-word">on </span><span class="scroll-word">my </span><span class="scroll-word">university </span><span class="scroll-word">applications.</span>
               </p>
               <p>
-                <span class="scroll-word">If </span><span class="scroll-word">you </span><span class="scroll-word">want </span><span class="scroll-word">to </span><span class="scroll-word">say </span><span class="scroll-word">hi, </span><span class="scroll-word">you </span><span class="scroll-word">can </span><span class="scroll-word">find </span><span class="scroll-word">me </span><span class="scroll-word">on </span><span class="scroll-word"><a href="#" target="_blank" rel="noopener noreferrer" class="dotted-link">Facebook</a>, </span><span class="scroll-word"><a href="#" target="_blank" rel="noopener noreferrer" class="dotted-link">LinkedIn</a>, </span><span class="scroll-word">or </span><span class="scroll-word">at </span><span class="scroll-word"><a href="mailto:braeden.lagowski1@gmail.com" class="dotted-link">braeden.lagowski1@gmail.com</a>.</span>
+                <span class="scroll-word">If </span><span class="scroll-word">you </span><span class="scroll-word">want </span><span class="scroll-word">to </span><span class="scroll-word">say </span><span class="scroll-word">hi, </span><span class="scroll-word">you </span><span class="scroll-word">can </span><span class="scroll-word">find </span><span class="scroll-word">me </span><span class="scroll-word">on </span><span class="scroll-word"><a href="https://www.facebook.com/braeden.lagowski" target="_blank" rel="noopener noreferrer" class="dotted-link">Facebook</a>, </span><span class="scroll-word"><a href="https://www.linkedin.com/in/braedenlagowski/" target="_blank" rel="noopener noreferrer" class="dotted-link">LinkedIn</a>, </span><span class="scroll-word">or </span><span class="scroll-word">at </span><span class="scroll-word"><a href="mailto:braeden.lagowski1@gmail.com" class="dotted-link">braeden.lagowski1@gmail.com</a>.</span>
               </p>
             </div>
           </section>
