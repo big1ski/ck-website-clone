@@ -791,6 +791,13 @@
                   </div>
                 </div>
               </a>
+              <template class="modal-media-template">
+                <picture>
+                  <source type="image/avif" srcset="assets/optimized/gallery/IMG_9738-400.avif 400w, assets/optimized/gallery/IMG_9738-800.avif 800w, assets/optimized/gallery/IMG_9738-1600.avif 1600w" sizes="(max-width: 900px) 100vw, 520px">
+                  <source type="image/webp" srcset="assets/optimized/gallery/IMG_9738-400.webp 400w, assets/optimized/gallery/IMG_9738-800.webp 800w, assets/optimized/gallery/IMG_9738-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 520px">
+                  <img src="assets/optimized/gallery/IMG_9738-800.jpg" alt="Model United Nations" width="800" height="600" loading="lazy" decoding="async">
+                </picture>
+              </template>
             </div>
 
             <!-- Activity: EBS Symposium -->
@@ -853,6 +860,13 @@
                   </div>
                 </div>
               </a>
+              <template class="modal-media-template">
+                <picture>
+                  <source type="image/avif" srcset="assets/optimized/photos/hyrox-doubles-400.avif 400w, assets/optimized/photos/hyrox-doubles-800.avif 800w, assets/optimized/photos/hyrox-doubles-1600.avif 1600w" sizes="(max-width: 900px) 100vw, 520px">
+                  <source type="image/webp" srcset="assets/optimized/photos/hyrox-doubles-400.webp 400w, assets/optimized/photos/hyrox-doubles-800.webp 800w, assets/optimized/photos/hyrox-doubles-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 520px">
+                  <img src="assets/optimized/photos/hyrox-doubles-800.jpg" style="object-position: center top;" alt="Hyrox doubles" width="800" height="881" loading="lazy" decoding="async">
+                </picture>
+              </template>
             </div>
 
             <!-- Activity: Volleyball -->
@@ -2739,18 +2753,24 @@
     setText(modalYear, yearFrom(cell));
     setText(modalBody, descFrom(cell) || (subtitle ? subtitle : `A closer look at ${title}.`));
 
+    const tmpl = cell.querySelector('.modal-media-template');   // optional per-card modal <picture>
+    const hasMedia = !!(tmpl || img);
     modalMedia.innerHTML = '';
-    modalMedia.style.display = img ? '' : 'none';
-    if (img) {
+    modalMedia.style.display = hasMedia ? '' : 'none';
+    if (hasMedia) {
       const frame = document.createElement('div');
       frame.className = 'card-modal-media-frame';
-      const modalImg = document.createElement('img');
-      modalImg.src = img.currentSrc || img.src;
-      modalImg.alt = img.alt || title;
-      ['image-contain', 'image-focus-hyrox'].forEach(className => {
-        if (img.classList.contains(className)) modalImg.classList.add(className);
-      });
-      frame.appendChild(modalImg);
+      if (tmpl) {
+        frame.appendChild(tmpl.content.cloneNode(true));        // full <picture>, optimized sources
+      } else {
+        const modalImg = document.createElement('img');
+        modalImg.src = img.currentSrc || img.src;
+        modalImg.alt = img.alt || title;
+        ['image-contain', 'image-focus-hyrox'].forEach(className => {
+          if (img.classList.contains(className)) modalImg.classList.add(className);
+        });
+        frame.appendChild(modalImg);
+      }
       modalMedia.appendChild(frame);
     }
 
